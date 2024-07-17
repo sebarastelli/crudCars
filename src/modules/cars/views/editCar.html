@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <title>Rent A Car</title>
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <div class="icon-team has-text-centered mb-4">
+                <a href="/cars" class="icon is-large">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+            <h1 class="title has-text-centered">Edit this Car</h1>
+            <div class="box">
+                <form action="/cars/editCar/{{carData.id}}" method="POST" enctype="multipart/formData">
+                    <div class="columns is-multiline">
+                        <div class="column is-4">
+                            <div class="field">
+                                <label class="label">Brand</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="brand" value={{carData.brand}} required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-4">
+                            <div class="field">
+                                <label class="label">Model</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="model" value={{carData.model}} required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-4">
+                            <div class="field">
+                                <label class="label">Year</label>
+                                <div class="control">
+                                    <input class="input" type="number" name="year" value={{carData.year}} required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-4">
+                            <div class="field">
+                                <label class="label">KMS</label>
+                                <div class="control">
+                                    <input class="input" type="number" name="kms" value={{carData.kms}} required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-4">
+                            <div class="field">
+                                <label class="label">Color</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="color" value={{carData.color}} required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-4">
+                            <div class="field">
+                                <label class="label">Air Conditioner</label>
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select name="ac" required>
+                                            <option {% if carData.ac==="Yes" %} selected="selected" {% endif %}>Yes</option>
+                                            <option {% if carData.ac==="No" %} selected="selected" {% endif %}>No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-4">
+                            <div class="field">
+                                <label class="label">Type</label>
+                                <div class="control">
+                                    <div class="select is-fullwidth">
+                                        <select name="transmission" required>
+                                            <option {% if carData.transmission==="Manual" %} selected="selected" {% endif %}>Manual</option>
+                                            <option {% if carData.transmission==="Automatic" %} selected="selected" {% endif %}>Automatic</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-4">
+                            <div class="field">
+                                <label class="label">Passengers</label>
+                                <div class="control">
+                                    <input class="input" type="number" name="passengers" value={{carData.passengers}} required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-4">
+                            <div class="field">
+                                <label class="label">Car Image</label>
+                                <div class="control">
+                                    <input class="input" type="text" name="picture" value={{carData.picture}} required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column is-4">
+                            <div class="field">
+                                <label class="label">Price/Day</label>
+                                <div class="control">
+                                    <input class="input" type="number" name="price" value={{carData.price}} required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field is-grouped is-grouped-centered">
+                        <div class="control">
+                            <button class="button is-link">Edit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

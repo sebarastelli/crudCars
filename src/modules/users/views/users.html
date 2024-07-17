@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/normalize.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>Users</title>
+</head>
+<body>
+    <h1 class="title is-1 has-text-centered">RENT A CAR</h1>
+    <h1 class="title is-2 has-text-centered">USERS🙍‍♂️</h1>
+
+    <div class="tabs is-centered">
+        <ul>
+            <li><a class="is-size-4" href="users/register">ADD USER</a></li>
+            <li ><a class="is-size-4" href="/cars">CARS</a></li>
+            <li><a class="is-size-4" href="/rent">RENTS</a></li>
+        </ul>
+    </div>
+    
+    <div class="container">
+        <table class="table is-bordered is-fullwidth">
+            <thead>
+                <tr>
+                    <th class="has-text-centered is-size-4">ID</th>
+                    <th class="has-text-centered is-size-4">First Name</th>
+                    <th class="has-text-centered is-size-4">Last Name</th>
+                    <th class="has-text-centered is-size-4">Age</th>
+                    <th class="has-text-centered is-size-4">Phone</th>
+                    <th class="has-text-centered is-size-4">Email</th>
+                    <th class="has-text-centered is-size-4">Document/N</th>
+                    <th class="has-text-centered is-size-4">Manage</th>
+                    
+
+                </tr>
+            </thead>
+               
+               {% block users %} {% endblock %}
+
+        </table>
+    </div>
+    
+</body>
+</html>

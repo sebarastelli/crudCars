@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <title>Edit User</title>
+    <style>
+        .container {
+            max-width: 800px;
+        }
+        .icon-team {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="section">
+        <div class="container">
+            <div class="icon-team has-text-centered mb-4">
+                <a href="/cars" class="icon is-large">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+            <h1 class="title is-1 has-text-centered">Edit User</h1>
+
+            <form action="/users/editUser/{{userData.id}}" method="POST">
+                <div class="columns is-multiline">
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">First Name</label>
+                            <div class="control">
+                                <input class="input" type="text" name="name" value="{{userData.name}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Last Name</label>
+                            <div class="control">
+                                <input class="input" type="text" name="surname" value="{{userData.surname}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Age</label>
+                            <div class="control">
+                                <input class="input" type="number" name="age" value="{{userData.age}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Phone</label>
+                            <div class="control">
+                                <input class="input" type="tel" name="phone" value="{{userData.phone}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input class="input" type="email" name="email" value="{{userData.email}}" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-half">
+                        <div class="field">
+                            <label class="label">Document Number</label>
+                            <div class="control">
+                                <input class="input" type="text" name="document" value="{{userData.document}}" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="field is-grouped is-grouped-centered mt-5">
+                    <div class="control">
+                        <button class="button is-link is-large">Edit</button>
+                    </div>
+                </div>
+            </form> 
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</body>
+</html>

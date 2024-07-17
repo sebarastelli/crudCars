@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "better-sqlite3": "^8.0.1",
+    "bulma": "^0.9.4",
+    "cookie-session": "^2.0.0",
+    "dotenv": "^16.4.5",
+    "eslint-plugin-jest": "^27.2.1",
+    "express": "^4.18.2",
+    "express-session": "^1.18.0",
+    "fs": "^0.0.1-security",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.4",
+    "nunjucks": "^3.2.3",
+    "path": "^0.12.7",
+    "rsdi": "^2.4.1"
+  }
+}
