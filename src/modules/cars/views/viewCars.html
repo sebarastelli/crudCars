@@ -1,37 +1,43 @@
 {% extends "views/index.html" %} 
 
 {% block cars %} 
-
 <tbody>
-{% for car in carsData %}
-<tr>
-    <td class="has-text-centered is-size-5">{{car.id}}</td>
-    <td class="has-text-centered is-size-5"> {% if car.brand!=='' %} {{car.brand}} {% else %} - {% endif %}</td>  
-    <td class="has-text-centered is-size-5"> {% if car.model!=='' %} {{car.model}} {% else %} - {% endif %}</td>
-    <td class="has-text-centered is-size-5"> {% if car.year!=='' %} {{car.year}} {% else %} - {% endif %}</td>
-    <td class="has-text-centered is-size-5"> {% if car.kms!=='' %} {{car.kms}} {% else %} - {% endif %}</td>
-    <td class="has-text-centered is-size-5"> {% if car.color!=='' %} {{car.color}} {% else %} - {% endif %}</td>
-    <td class="has-text-centered is-size-5"> {% if car.ac!=='' %} {{car.ac}} {% else %} - {% endif %}</td>
-    <td class="has-text-centered is-size-5"> {% if car.passengers!=='' %} {{car.passengers}} {% else %} - {% endif %}</td>
-    <td class="has-text-centered is-size-5"> {% if car.transmission!=='' %} {{car.transmission}} {% else %} - {% endif %}</td>
-    <td class="has-text-centered is-size-5"> {% if car.picture != '' %} <img src="{{ car.picture }}" alt="Car Picture"> {% else %} - {% endif %}</td>
-    <td class="has-text-centered is-size-5"> {% if car.price!=='' %} {{car.price}} {% else %} - {% endif %}</td>
-    <td class="has-text-centered is-size-5"><a href='/cars/editCar/{{car.id}}'>EDIT</a>-<a href="/cars/deleteCar/{{car.id}}">DELETE</a></td>
-
-    
-</tr>
-{% endfor %}
+  {% for car in carsData %}
+    <tr>
+      <td class="has-text-centered is-size-5">{{ car.id }}</td>
+      <td class="has-text-centered is-size-5">{% if car.brand !== '' %}{{ car.brand }}{% else %} - {% endif %}</td>  
+      <td class="has-text-centered is-size-5">{% if car.model !== '' %}{{ car.model }}{% else %} - {% endif %}</td>
+      <td class="has-text-centered is-size-5">{% if car.year !== '' %}{{ car.year }}{% else %} - {% endif %}</td>
+      <td class="has-text-centered is-size-5">{% if car.kms !== '' %}{{ car.kms }}{% else %} - {% endif %}</td>
+      <td class="has-text-centered is-size-5">{% if car.color !== '' %}{{ car.color }}{% else %} - {% endif %}</td>
+      <td class="has-text-centered is-size-5">{% if car.ac !== '' %}{{ car.ac }}{% else %} - {% endif %}</td>
+      <td class="has-text-centered is-size-5">{% if car.passengers !== '' %}{{ car.passengers }}{% else %} - {% endif %}</td>
+      <td class="has-text-centered is-size-5">{% if car.transmission !== '' %}{{ car.transmission }}{% else %} - {% endif %}</td>
+      <td class="has-text-centered is-size-5">
+        {% if car.picture != '' %}
+          <img src="{{ car.picture }}" alt="Car Picture" style="max-width: 100px;">
+        {% else %}
+          -
+        {% endif %}
+      </td>
+      <td class="has-text-centered is-size-5">{% if car.price !== '' %}${{ car.price }}{% else %} - {% endif %}</td>
+      <td class="has-text-centered is-size-5">
+        <div class="buttons are-small is-centered">
+          <a class="button is-warning is-small" href='/cars/editCar/{{ car.id }}'>EDIT</a>
+          <a class="button is-danger is-small" href="/cars/deleteCar/{{ car.id }}">DELETE</a>
+        </div>
+      </td>
+    </tr>
+  {% endfor %}
 </tbody>
 
 {% for error in errors %}
-    <div class="notification is-primary">
-        {% if error=='FOREIGN KEY constraint failed' %}
-           Cannot deleted a rented car
-        {% else %} 
-            {{error}}
-        {% endif %}
-    </div>
-
+  <div class="notification is-danger">
+    {% if error == 'FOREIGN KEY constraint failed' %}
+      Cannot delete a rented car.
+    {% else %}
+      {{ error }}
+    {% endif %}
+  </div>
 {% endfor %}
-
-{%endblock %}
+{% endblock %}

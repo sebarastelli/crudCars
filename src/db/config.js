@@ -5,6 +5,7 @@ const session=require('express-session');
 const { default:DIContainer,object,use,factory} = require('rsdi');
 const {userController,userService,userRepository}= require('../modules/users/userModule.js')
 const {carsController, carsService, carsRepository}= require('../modules/cars/carsModule.js')
+const { RentsController, RentsService, RentsRepository } = require('../modules/rents/rentsModule');
 
 function runDatabase() {
     const dataBase=new database(process.env.DB_PATH,{verbose:console.log});
@@ -48,10 +49,25 @@ function addCarsDefinitions(container) {
     })
 }
 
-module.exports= function configureDI() {
-    const container=new DIContainer();
+function addRentsDefinitions(container) {
+    container.add({
+        rentsController: object(RentsController).construct(use('rentsService'), use('carsService'), use('userService')),
+        rentsService: object(RentsService).construct(use('rentsRepository')),
+        rentsRepository: object(RentsRepository).construct(use('runDatabase')),
+    });
+}
+
+module.exports = function configureDI() {
+    const container = new DIContainer();
     addCommonDefinitions(container);
     addUsersDefinitions(container);
     addCarsDefinitions(container);
-    return container
-}
+    addRentsDefinitions(container);
+
+    // Agrega logs de depuración
+    console.log('userService:', container.get('userService'));
+    console.log('carsService:', container.get('carsService'));
+    console.log('rentsService:', container.get('rentsService'));
+
+    return container;
+};

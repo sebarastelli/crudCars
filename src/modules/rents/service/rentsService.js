@@ -1,28 +1,27 @@
-class rentsService{
-    constructor(rentsRepository){
-        this.rentsRepository = rentsRepository
+class RentsService {
+    constructor(rentsRepository) {
+        this.rentsRepository = rentsRepository;
     }
 
-    async getAllRents(){
-        await this.rentsRepository.getAllRents()
+    async getAllRents() {
+        return this.rentsRepository.getAllRents();
     }
 
-    async rentCar(rentData){
-        await this.rentsRepository.rentCar(rentData)
+    async rentCar(rentData) {
+        return this.rentsRepository.rentCar(rentData);
     }
 
-    async editRent(rentData){
-        await this.rentsRepository.editRent(rentData)
+    async editRent(formData) {
+        return this.rentsRepository.editRent(formData);
     }
 
-    async deleteRent(id){
-        await this.rentsRepository.deleteRent(id)
+    async deleteRent(id) {
+        return this.rentsRepository.deleteRent(id);
     }
 
-    async getRentById(id){
-        await this.rentsRepository.getRentById(id)
+    async getRentById(id) {
+        return this.rentsRepository.getRentById(id);
     }
-
 }
 
-module.exports = rentsService;
+module.exports = RentsService;

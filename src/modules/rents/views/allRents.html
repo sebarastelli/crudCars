@@ -1,0 +1,57 @@
+{% extends "./rents.html" %} 
+
+{% block rents %} 
+{% if rentedCars !== undefined %}
+  <tbody>
+    {% for rent in rentedCars %}
+      <tr>
+        <td class="has-text-centered is-size-5">{{ rent.id }}</td>
+        <td class="has-text-centered is-size-5">
+          <div class="dropdown is-hoverable">
+            <div class="dropdown-trigger has-text-centered">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                <span>View</span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+              <div class="dropdown-content">
+                <div class="dropdown-item">
+                  <ul style="list-style-type: none; padding-left: 0;">
+                    <li class="is-size-5"><strong>Brand:</strong> {{ rent.brand }}</li>
+                    <li class="is-size-5"><strong>Model:</strong> {{ rent.model }}</li>
+                    <li class="is-size-5"><strong>Year:</strong> {{ rent.year }}</li>
+                    <li class="is-size-5"><strong>KMS:</strong> {{ rent.kms }} kms</li>
+                    <li class="is-size-5"><strong>Color:</strong> {{ rent.color }}</li>
+                    <li class="is-size-5"><strong>AC:</strong> {% if rent.ac == "Yes" %} Yes {% else %} No {% endif %}</li>
+                    <li class="is-size-5"><strong>Passengers:</strong> {{ rent.passengers }}</li>
+                    <li class="is-size-5"><strong>Transmission:</strong> {{ rent.transmission }}</li>
+                    <li class="is-size-5"><strong>Image:</strong> <a href="{{ rent.picture }}" target="_blank">View</a></li>
+                    <li class="is-size-5"><strong>Price:</strong> ${{ rent.price }}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td class="has-text-centered is-size-5">{{ rent.name }} {{ rent.surname }}</td>  
+        <td class="has-text-centered is-size-5">{{ rent.document }}</td>  
+        <td class="has-text-centered is-size-5">{{ rent.startDate }}</td>
+        <td class="has-text-centered is-size-5">{{ rent.finishDate }}</td>
+        <td class="has-text-centered is-size-5">{{ rent.totalDays * rent.price }}</td>
+        <td class="has-text-centered is-size-5">
+          <div class="buttons is-centered">
+            <a class="button is-small is-warning" href='/rents/editRent/{{ rent.id }}'>Edit</a>
+            <a class="button is-small is-danger" href="/rents/deleteRent/{{ rent.id }}">Delete</a>
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+{% endif %}
+
+{% for error in errors %}
+  <div class="notification is-danger">
+    {{ error }}
+  </div>
+{% endfor %}
+{% endblock %}

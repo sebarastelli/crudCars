@@ -5,6 +5,7 @@ const configureDependencyInjection=require('./db/config.js');
 
 const userModule=require('./modules/users/userModule.js');
 const carModule=require('./modules/cars/carsModule.js');
+const rentsModule=require('./modules/rents/rentsModule.js')
 
 
 const app=express();
@@ -22,7 +23,14 @@ app.set('view engine', 'html');
 
 const container=configureDependencyInjection(app);
 app.use(container.get('session'));
+
+console.log('Session:', container.get('session'));
+console.log('userService:', container.get('userService'));
+console.log('carsService:', container.get('carsService'));
+console.log('rentsService:', container.get('rentsService'));
+
 carModule.initCars(app,container);
 userModule.initUsers(app,container);
+rentsModule.initRent(app,container);
 
 app.listen(port)

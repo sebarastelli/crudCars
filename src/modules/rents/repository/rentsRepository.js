@@ -5,55 +5,73 @@ class RentsRepository {
   }
 
   getAllRents() {
-    const rentsData = `SELECT 
-        id,
-        fk_car,
-        fk_user,
-        startDate,
-        finishDate,
-        totalDays
-        FROM ${this.tableName}`
-        return this.database.prepare(rentsData).all()
+    const data = `
+        SELECT
+            rents.id,
+            cars.brand,
+            cars.model,
+            cars.year,
+            cars.kms,
+            cars.color,
+            cars.ac,
+            cars.passengers,
+            cars.transmission,
+            cars.picture,
+            cars.price,
+            users.name,
+            users.surname,
+            users.document,
+            rents.startDate,
+            rents.finishDate,
+            rents.totalDays
+        FROM rents
+        INNER JOIN cars ON rents.fk_car = cars.id
+        INNER JOIN users ON rents.fk_user = users.id
+    `;
+    return this.database.prepare(data).all();
   }
 
-  rentCar(rentData){
-    const data = `INSERT INTO ${this.tableName} (
-        id,
-        fk_car,
-        fk_user,
-        startDate,
-        finishDate,
-        totalDays)
-        VALUES(
-        ${rentData.id},
-        ${rentData.fk_car},
-        ${rentData.fk_user},
-        ${rentData.startDate},
-        ${rentData.finishDate},
-        ${rentData.totalDays}
-        )`
-        return this.database.prepare(data).run()
+  rentCar(rentData) {
+    const data = `
+        INSERT INTO ${this.tableName} (
+            id,
+            fk_car,
+            fk_user,
+            startDate,
+            finishDate,
+            totalDays
+        ) VALUES (
+            @id,
+            @fk_car,
+            @fk_user,
+            @startDate,
+            @finishDate,
+            @totalDays
+        )
+    `;
+    const stmt = this.database.prepare(data);
+    return stmt.run(rentData);
   }
 
-  editRent(rentData){
+  editRent(rentData) {
     const data = `UPDATE ${this.tableName} SET
     fk_car = ${rentData.fk_car},
     fk_user = ${rentData.fk_user},
     startDate = ${rentData.startDate},
     finishDate = ${rentData.finishDate},
     totalDays = ${rentData.totalDays}
-    WHERE id = ${rentData.id}`
-    return this.database.prepare(data).run()
+    WHERE id = ${rentData.id}`;
+    return this.database.prepare(data).run();
   }
 
-  deleteRent(id){
-    const data = `DELETE FROM ${this.tableName} WHERE id = ${id}`
-    return this.database.prepare(data).run()
+  deleteRent(id) {
+    const data = `DELETE FROM ${this.tableName} WHERE id = ${id}`;
+    return this.database.prepare(data).run();
   }
 
-  getRentById(id){
-    const data = `SELECT * FROM ${this.tableName} WHERE id = ${id}`
-    return this.database.prepare(data).get()
+  getRentById(id) {
+    const data = `SELECT * FROM ${this.tableName} WHERE id = ${id}`;
+    return this.database.prepare(data).get();
   }
 }
 
