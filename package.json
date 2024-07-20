@@ -13,5 +13,11 @@
     "nunjucks": "^3.2.3",
     "path": "^0.12.7",
     "rsdi": "^2.4.1"
-  }
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "scripts": {
+  "test": "jest"
+}
 }
