@@ -11,8 +11,8 @@ class RentsService {
         return this.rentsRepository.rentCar(rentData);
     }
 
-    async editRent(formData) {
-        return this.rentsRepository.editRent(formData);
+    async editRent({ id, ...formData }) {
+        return this.rentsRepository.editRent(id, formData);
     }
 
     async deleteRent(id) {
