@@ -21,25 +21,25 @@
     </div>
     
     <div class="container">
-        <table class="table is-bordered is-fullwidth">
-            <thead>
-                <tr>
-                    <th class="has-text-centered is-size-4">ID</th>
-                    <th class="has-text-centered is-size-4">CAR</th>
-                    <th class="has-text-centered is-size-4">USER</th>
-                    <th class="has-text-centered is-size-4">DOCUMENT</th>
-                    <th class="has-text-centered is-size-4">START DATE</th>
-                    <th class="has-text-centered is-size-4">FINISH DATE</th>
-                    <th class="has-text-centered is-size-4">TOTAL PRICE</th>
-                    <th class="has-text-centered is-size-4">MANAGE</th>
-                </tr>
-            </thead>
+        <div class="table-container">
+            <table class="table is-bordered is-fullwidth is-striped is-hoverable is-scrollable">
+                <thead>
+                    <tr>
+                        <th class="has-text-centered is-size-4">ID</th>
+                        <th class="has-text-centered is-size-4">CAR</th>
+                        <th class="has-text-centered is-size-4">USER</th>
+                        <th class="has-text-centered is-size-4">DOCUMENT</th>
+                        <th class="has-text-centered is-size-4">START DATE</th>
+                        <th class="has-text-centered is-size-4">FINISH DATE</th>
+                        <th class="has-text-centered is-size-4">TOTAL PRICE</th>
+                        <th class="has-text-centered is-size-4">MANAGE</th>
+                    </tr>
+                </thead>
                
-            {% block rents %} {% endblock %}
-
-        </table>
-        
-        
+                {% block rents %} {% endblock %}
+    
+            </table>
+        </div>
     </div>
     
 </body>

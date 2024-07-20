@@ -15,31 +15,31 @@
     <div class="tabs is-centered">
         <ul>
             <li><a class="is-size-4" href="users/register">ADD USER</a></li>
-            <li ><a class="is-size-4" href="/cars">CARS</a></li>
+            <li><a class="is-size-4" href="/cars">CARS</a></li>
             <li><a class="is-size-4" href="/rents">RENTS</a></li>
         </ul>
     </div>
     
     <div class="container">
-        <table class="table is-bordered is-fullwidth">
-            <thead>
-                <tr>
-                    <th class="has-text-centered is-size-4">ID</th>
-                    <th class="has-text-centered is-size-4">First Name</th>
-                    <th class="has-text-centered is-size-4">Last Name</th>
-                    <th class="has-text-centered is-size-4">Age</th>
-                    <th class="has-text-centered is-size-4">Phone</th>
-                    <th class="has-text-centered is-size-4">Email</th>
-                    <th class="has-text-centered is-size-4">Document/N</th>
-                    <th class="has-text-centered is-size-4">Manage</th>
-                    
-
-                </tr>
-            </thead>
+        <div class="table-container">
+            <table class="table is-bordered is-fullwidth is-striped is-hoverable is-scrollable">
+                <thead>
+                    <tr>
+                        <th class="has-text-centered is-size-4">ID</th>
+                        <th class="has-text-centered is-size-4">First Name</th>
+                        <th class="has-text-centered is-size-4">Last Name</th>
+                        <th class="has-text-centered is-size-4">Age</th>
+                        <th class="has-text-centered is-size-4">Phone</th>
+                        <th class="has-text-centered is-size-4">Email</th>
+                        <th class="has-text-centered is-size-4">Document/N</th>
+                        <th class="has-text-centered is-size-4">Manage</th>
+                    </tr>
+                </thead>
                
-               {% block users %} {% endblock %}
-
-        </table>
+                {% block users %} {% endblock %}
+    
+            </table>
+        </div>
     </div>
     
 </body>
