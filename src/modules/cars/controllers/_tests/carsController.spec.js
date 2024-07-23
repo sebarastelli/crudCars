@@ -63,3 +63,27 @@ test('it test editCarForm render', async()=>{
         carData:{},
 })
 })
+
+test('it test editCar controller', async()=>{
+    const mockRedirect = jest.fn();
+    const carData2 = {
+        id: 1, brand: "toyota", model: "corolla", year: 2022, kms: 15000, color: "red",
+        ac: "yes", passengers: 6, transmission: "manual", picture: "", price: 150
+    };
+    
+    await controller.editCar({ params: { id: 1 }, session: { errors: [] }, body: carData2 }, { redirect: mockRedirect });
+    
+    expect(mockService.editCar).toHaveBeenCalledWith(carData2);
+    expect(mockService.editCar).toHaveBeenCalledTimes(1);
+    expect(mockRedirect).toHaveBeenCalledTimes(1);
+    expect(mockRedirect).toHaveBeenCalledWith('/cars');
+});
+
+test('it test deleteCar controller', async()=>{
+    const mockRedirect=jest.fn();
+    await controller.deleteCar({params:{'id':1}},{redirect:mockRedirect});
+    expect(mockService.deleteCar).toHaveBeenCalledWith(1);
+    expect(mockService.deleteCar).toHaveBeenCalledTimes(1);
+    expect(mockRedirect).toHaveBeenCalledTimes(1);
+    expect(mockRedirect).toHaveBeenCalledWith('/cars');
+})

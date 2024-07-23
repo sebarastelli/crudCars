@@ -50,7 +50,6 @@ class RentsController {
         res.redirect("/rents");
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error al rentar el auto");
     }
   }
 
