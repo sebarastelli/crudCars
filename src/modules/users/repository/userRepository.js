@@ -19,7 +19,7 @@ class UserRepository {
         return this.database.prepare(usersData).all()
     }
 
-    addUser(userData) {
+    createUser(userData) {
         const data=`INSERT INTO ${this.tableName} (
                 name,
                 surname,

@@ -57,8 +57,8 @@ class RentsRepository {
     const data = `UPDATE ${this.tableName} SET
     fk_car = ${formData.fk_car},
     fk_user = ${formData.fk_user},
-    startDate = ${formData.startDate},
-    finishDate = ${formData.finishDate},
+    startDate = '${formData.startDate}',
+    finishDate = '${formData.finishDate}',
     totalDays = ${formData.totalDays}
     WHERE id = ${id}`;
     return this.database.prepare(data).run();
