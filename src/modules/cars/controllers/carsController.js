@@ -15,7 +15,6 @@ class carsController {
 
   async carsPage(req, res) {
     const carsData = await this.carsService.getAllCars();
-    console.log(carsData);
     try {
       res.render(`cars/views/viewCars.html`, {
         carsData,
@@ -30,12 +29,10 @@ class carsController {
   async postCarForm(req, res) {
     res.render(`cars/views/postCar.html`);
   }
-
   async postCar(req, res) {
     try {
       const formData = req.body;
       await this.carsService.postCar(formData);
-      console.log(formData);
     } catch (e) {
       req.session.errors = [e.message];
     }
@@ -80,7 +77,7 @@ class carsController {
   async deleteCar(req, res) {
     try {
       await this.carsService.deleteCar(req.params["id"]);
-    } catch (error) {
+    } catch (e) {
       req.session.errors = [e.message];
     }
     res.redirect("/cars");

@@ -8,10 +8,13 @@ const {carsController, carsService, carsRepository}= require('../modules/cars/ca
 const { RentsController, RentsService, RentsRepository } = require('../modules/rents/rentsModule');
 
 function runDatabase() {
-    const dataBase=new database(process.env.DB_PATH,{verbose:console.log});
-    const tables = fs.readFileSync(process.env.DB_TABLES_PATH, 'utf8');
-    dataBase.exec(tables);
-    return dataBase
+    const dbPath = process.env.NODE_ENV === 'test' ? ':memory:' : process.env.DB_PATH;
+    const dataBase = new database(dbPath, { verbose: console.log });
+    if (process.env.NODE_ENV !== 'test') {
+        const tables = fs.readFileSync(process.env.DB_TABLES_PATH, 'utf8');
+        dataBase.exec(tables);
+    }
+    return dataBase;
 }
 
 
@@ -63,11 +66,5 @@ module.exports = function configureDI() {
     addUsersDefinitions(container);
     addCarsDefinitions(container);
     addRentsDefinitions(container);
-
-    // Agrega logs de depuración
-    console.log('userService:', container.get('userService'));
-    console.log('carsService:', container.get('carsService'));
-    console.log('rentsService:', container.get('rentsService'));
-
     return container;
 };
