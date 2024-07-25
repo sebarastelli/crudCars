@@ -1,6 +1,4 @@
 const RentsController = require("../rentsController.js");
-const rentsService = require("../../service/rentsService.js");
-const rentsRepository = require("../../repository/rentsRepository.js");
 
 const mockCarsService = {
   getAllCars: jest.fn(() => Promise.resolve([])),

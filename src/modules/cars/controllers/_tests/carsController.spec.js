@@ -1,6 +1,4 @@
 const carsController = require('../carsController.js');
-const carsService = require('../../service/carsService.js');
-const carsRepository = require('../../repository/carsRepository.js');
 
 const uploadDataHandler = {
     single: jest.fn(),
