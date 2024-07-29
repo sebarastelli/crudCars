@@ -1,11 +1,10 @@
-class CarsRepository{
-    constructor(database){
-        this.tableName='cars',
-        this.database=database
-    }
+class CarsRepository {
+  constructor(database) {
+    (this.tableName = "cars"), (this.database = database);
+  }
 
-    getAllCars() {
-        const carsData=`SELECT 
+  getAllCars() {
+    const carsData = `SELECT 
             id,
             brand,
             model,
@@ -18,12 +17,12 @@ class CarsRepository{
             picture,
             price
             FROM ${this.tableName}
-        `
-        return this.database.prepare(carsData).all()
-    }
+        `;
+    return this.database.prepare(carsData).all();
+  }
 
-    postCar(carData) {
-        const data=`INSERT INTO ${this.tableName} (
+  postCar(carData) {
+    const data = `INSERT INTO ${this.tableName} (
             brand,
             model,
             year,
@@ -46,12 +45,12 @@ class CarsRepository{
             '${carData.picture}',
             '${carData.price}'
             )
-    `
+    `;
     return this.database.prepare(data).run();
-    }
+  }
 
-    editCar(carData) {
-        const updateCar = `
+  editCar(carData) {
+    const updateCar = `
             UPDATE ${this.tableName} SET
                 brand = ?,
                 model = ?,
@@ -65,28 +64,30 @@ class CarsRepository{
                 price = ?
             WHERE id = ?
         `;
-        this.database.prepare(updateCar).run(
-            carData.brand,
-            carData.model,
-            carData.year,
-            carData.kms,
-            carData.color,
-            carData.ac,
-            carData.passengers,
-            carData.transmission,
-            carData.picture,
-            carData.price,
-            carData.id
-        );
-    }
+    this.database
+      .prepare(updateCar)
+      .run(
+        carData.brand,
+        carData.model,
+        carData.year,
+        carData.kms,
+        carData.color,
+        carData.ac,
+        carData.passengers,
+        carData.transmission,
+        carData.picture,
+        carData.price,
+        carData.id,
+      );
+  }
 
-    deleteCar(id) {
-        const carToDelete=`DELETE FROM ${this.tableName} WHERE id=${id}`
-        this.database.prepare(carToDelete).run();
-    }
+  deleteCar(id) {
+    const carToDelete = `DELETE FROM ${this.tableName} WHERE id=${id}`;
+    this.database.prepare(carToDelete).run();
+  }
 
-    getCarById(id) {
-        const carData=`SELECT
+  getCarById(id) {
+    const carData = `SELECT
             id,
             brand,
             model,
@@ -99,10 +100,10 @@ class CarsRepository{
             picture,
             price
             FROM ${this.tableName} WHERE id=?
-        `
-        const car=this.database.prepare(carData).get(id);
-        return car
-    }
+        `;
+    const car = this.database.prepare(carData).get(id);
+    return car;
+  }
 }
 
 module.exports = CarsRepository;

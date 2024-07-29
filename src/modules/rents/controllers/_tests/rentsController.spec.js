@@ -17,14 +17,14 @@ const mockService = {
     Promise.resolve({
       startDate: "2024-07-01T00:00:00.000Z",
       finishDate: "2024-07-10T00:00:00.000Z",
-    })
+    }),
   ),
 };
 
 const controller = new RentsController(
   mockService,
   mockCarsService,
-  mockUsersService
+  mockUsersService,
 );
 
 beforeEach(() => {
@@ -41,19 +41,19 @@ test("it test rentsRoutes", () => {
   expect(app.get).toHaveBeenCalledWith("/rents/rentForm", expect.any(Function));
   expect(app.post).toHaveBeenCalledWith(
     "/rents/rentForm",
-    expect.any(Function)
+    expect.any(Function),
   );
   expect(app.get).toHaveBeenCalledWith(
     "/rents/editRent/:id",
-    expect.any(Function)
+    expect.any(Function),
   );
   expect(app.post).toHaveBeenCalledWith(
     "/rents/editRent/:id",
-    expect.any(Function)
+    expect.any(Function),
   );
   expect(app.get).toHaveBeenCalledWith(
     "/rents/deleteRent/:id",
-    expect.any(Function)
+    expect.any(Function),
   );
 });
 
@@ -61,7 +61,7 @@ test("it test rentsPage", async () => {
   const mockRender = jest.fn();
   await controller.rentsPage(
     { session: { errors: [] } },
-    { render: mockRender }
+    { render: mockRender },
   );
   expect(mockRender).toHaveBeenCalledTimes(1);
   expect(mockRender).toHaveBeenCalledWith("rents/views/allRents.html", {
@@ -157,12 +157,12 @@ test("it test editRent controller", async () => {
   expect(mockRedirect).toHaveBeenCalledTimes(1);
 });
 
-test('it test deleteRent controller', async()=>{
-    const mockRedirect = jest.fn();
-    const req = {params: {id: 1}};
-    const res = {redirect: mockRedirect};
-    await controller.deleteRent(req, res);
-    expect(mockService.deleteRent).toHaveBeenCalledWith(1);
-    expect(mockService.deleteRent).toHaveBeenCalledTimes(1);
-    expect(mockRedirect).toHaveBeenCalledWith("/rents");
-})
+test("it test deleteRent controller", async () => {
+  const mockRedirect = jest.fn();
+  const req = { params: { id: 1 } };
+  const res = { redirect: mockRedirect };
+  await controller.deleteRent(req, res);
+  expect(mockService.deleteRent).toHaveBeenCalledWith(1);
+  expect(mockService.deleteRent).toHaveBeenCalledTimes(1);
+  expect(mockRedirect).toHaveBeenCalledWith("/rents");
+});
