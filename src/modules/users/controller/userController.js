@@ -17,18 +17,18 @@ class userController {
     const usersData = await this.userService.getAllUsers();
     console.log(usersData);
     try {
-      res.render("users/views/allUsers.html", {
+      res.render('users/views/allUsers.html', {
         usersData,
       });
     } catch (error) {
-      res.render("users/views/allUsers.html", {
+      res.render('users/views/allUsers.html', {
         error,
       });
     }
   }
 
   async registerUserForm(req, res) {
-    res.render("users/views/register.html");
+    res.render('users/views/register.html');
   }
 
   async registerUser(req, res) {
@@ -38,19 +38,19 @@ class userController {
     } catch (e) {
       req.session.errors = [e.message];
     }
-    res.redirect("/users");
+    res.redirect('/users');
   }
 
   async editUserForm(req, res) {
-    const id = req.params["id"];
+    const id = req.params['id'];
     try {
       const userData = await this.userService.getUserById(id);
-      res.render("users/views/edit.html", {
+      res.render('users/views/edit.html', {
         userData,
       });
     } catch (e) {
       req.session.errors = [e.message];
-      res.redirect("/users");
+      res.redirect('/users');
     }
   }
 
@@ -66,7 +66,7 @@ class userController {
     };
     try {
       await this.userService.editUser(userData);
-      res.redirect("/users");
+      res.redirect('/users');
     } catch (e) {
       req.session.errors = [e.message];
     }
@@ -74,11 +74,11 @@ class userController {
 
   async deleteUser(req, res) {
     try {
-      await this.userService.deleteUser(req.params["id"]);
+      await this.userService.deleteUser(req.params['id']);
     } catch (e) {
       req.session.errors = [e.message];
     }
-    res.redirect("/users");
+    res.redirect('/users');
   }
 }
 

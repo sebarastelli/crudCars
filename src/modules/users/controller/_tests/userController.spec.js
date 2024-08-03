@@ -1,4 +1,4 @@
-const userController = require("../userController.js");
+const userController = require('../userController.js');
 
 const uploadDataHandler = {
   single: jest.fn(),
@@ -14,7 +14,7 @@ const mockService = {
 
 const controller = new userController(mockService, uploadDataHandler);
 
-test("it test userRoutes", () => {
+test('it test userRoutes', () => {
   const app = {
     get: jest.fn(),
     post: jest.fn(),
@@ -22,7 +22,7 @@ test("it test userRoutes", () => {
   controller.userRoutes(app);
 });
 
-test("it test userPage render", async () => {
+test('it test userPage render', async () => {
   const mockRender = jest.fn();
   await controller.userPage(
     { sessions: { error: [] } },
@@ -34,7 +34,7 @@ test("it test userPage render", async () => {
   });
 });
 
-test("it test registerUserForm render", async () => {
+test('it test registerUserForm render', async () => {
   const mockRender = jest.fn();
   await controller.registerUserForm(
     { sessions: { error: [] } },
@@ -44,15 +44,15 @@ test("it test registerUserForm render", async () => {
   expect(mockRender).toHaveBeenCalledWith(`users/views/register.html`);
 });
 
-test("it test registerUser controller", async () => {
+test('it test registerUser controller', async () => {
   const mockRedirect = jest.fn();
   const userData = {
     id: 1,
-    name: "John",
-    surname: "Doe",
-    age: "30",
+    name: 'John',
+    surname: 'Doe',
+    age: '30',
     phone: 5551234,
-    email: "john.doe@example.com",
+    email: 'john.doe@example.com',
     document: 12345678,
   };
   await controller.registerUser(
@@ -65,26 +65,26 @@ test("it test registerUser controller", async () => {
   expect(mockRedirect).toHaveBeenCalledWith(`/users`);
 });
 
-test("it test editUserForm render", async () => {
+test('it test editUserForm render', async () => {
   const mockRender = jest.fn();
   const req = { params: { id: 1 } };
   await controller.editUserForm(req, { render: mockRender });
   expect(mockService.getUserById).toHaveBeenCalledTimes(1);
   expect(mockService.getUserById).toHaveBeenCalledWith(1);
-  expect(mockRender).toHaveBeenCalledWith("users/views/edit.html", {
+  expect(mockRender).toHaveBeenCalledWith('users/views/edit.html', {
     userData: {},
   });
 });
 
-test("it test editUser controller", async () => {
+test('it test editUser controller', async () => {
   const mockRedirect = jest.fn();
   const userData2 = {
     id: 1,
-    name: "Juan",
-    surname: "Perez",
-    age: "31",
+    name: 'Juan',
+    surname: 'Perez',
+    age: '31',
     phone: 5551234,
-    email: "john.doe@example.com",
+    email: 'john.doe@example.com',
     document: 12345678,
   };
   await controller.editUser(
@@ -94,10 +94,10 @@ test("it test editUser controller", async () => {
   expect(mockService.editUser).toHaveBeenCalledWith(userData2);
   expect(mockService.editUser).toHaveBeenCalledTimes(1);
   expect(mockRedirect).toHaveBeenCalledTimes(1);
-  expect(mockRedirect).toHaveBeenCalledWith("/users");
+  expect(mockRedirect).toHaveBeenCalledWith('/users');
 });
 
-test("it test deleteUser controller", async () => {
+test('it test deleteUser controller', async () => {
   const mockRedirect = jest.fn();
   await controller.deleteUser(
     { params: { id: 1 } },
@@ -106,5 +106,5 @@ test("it test deleteUser controller", async () => {
   expect(mockService.deleteUser).toHaveBeenCalledWith(1);
   expect(mockService.deleteUser).toHaveBeenCalledTimes(1);
   expect(mockRedirect).toHaveBeenCalledTimes(1);
-  expect(mockRedirect).toHaveBeenCalledWith("/users");
+  expect(mockRedirect).toHaveBeenCalledWith('/users');
 });

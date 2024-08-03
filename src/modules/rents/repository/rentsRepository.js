@@ -1,6 +1,6 @@
 class RentsRepository {
   constructor(database) {
-    this.tableName = "rents";
+    this.tableName = 'rents';
     this.database = database;
   }
 

@@ -1,4 +1,4 @@
-const carsController = require("../carsController.js");
+const carsController = require('../carsController.js');
 
 const uploadDataHandler = {
   single: jest.fn(),
@@ -14,7 +14,7 @@ const mockService = {
 
 const controller = new carsController(mockService, uploadDataHandler);
 
-test("it test carsRoutes", () => {
+test('it test carsRoutes', () => {
   const app = {
     get: jest.fn(),
     post: jest.fn(),
@@ -22,7 +22,7 @@ test("it test carsRoutes", () => {
   controller.carsRoutes(app);
 });
 
-test("it test carsPage render", async () => {
+test('it test carsPage render', async () => {
   const mockRender = jest.fn();
   await controller.carsPage(
     { session: { errors: [] } },
@@ -34,25 +34,25 @@ test("it test carsPage render", async () => {
   });
 });
 
-test("it test postCarForm render", async () => {
+test('it test postCarForm render', async () => {
   const mockRender = jest.fn();
   await controller.postCarForm({}, { render: mockRender });
   expect(mockRender).toHaveBeenCalledTimes(1);
-  expect(mockRender).toHaveBeenCalledWith("cars/views/postCar.html");
+  expect(mockRender).toHaveBeenCalledWith('cars/views/postCar.html');
 });
 
-test("it test postCar controller", async () => {
+test('it test postCar controller', async () => {
   const mockRedirect = jest.fn();
   const carData = {
-    brand: "toyota",
-    model: "hilux",
+    brand: 'toyota',
+    model: 'hilux',
     year: 2022,
     kms: 15000,
-    color: "red",
-    ac: "yes",
+    color: 'red',
+    ac: 'yes',
     passengers: 6,
-    transmission: "manual",
-    picture: "",
+    transmission: 'manual',
+    picture: '',
     price: 150,
   };
   await controller.postCar(
@@ -62,33 +62,33 @@ test("it test postCar controller", async () => {
   expect(mockService.postCar).toHaveBeenCalledWith(carData);
   expect(mockService.postCar).toHaveBeenCalledTimes(1);
   expect(mockRedirect).toHaveBeenCalledTimes(1);
-  expect(mockRedirect).toHaveBeenCalledWith("/cars");
+  expect(mockRedirect).toHaveBeenCalledWith('/cars');
 });
 
-test("it test editCarForm render", async () => {
+test('it test editCarForm render', async () => {
   const mockRender = jest.fn();
   const req = { params: { id: 1 } };
   await controller.editCarForm(req, { render: mockRender });
   expect(mockService.getCarById).toHaveBeenCalledTimes(1);
   expect(mockService.getCarById).toHaveBeenCalledWith(1);
-  expect(mockRender).toHaveBeenCalledWith("cars/views/editCar.html", {
+  expect(mockRender).toHaveBeenCalledWith('cars/views/editCar.html', {
     carData: {},
   });
 });
 
-test("it test editCar controller", async () => {
+test('it test editCar controller', async () => {
   const mockRedirect = jest.fn();
   const carData2 = {
     id: 1,
-    brand: "toyota",
-    model: "corolla",
+    brand: 'toyota',
+    model: 'corolla',
     year: 2022,
     kms: 15000,
-    color: "red",
-    ac: "yes",
+    color: 'red',
+    ac: 'yes',
     passengers: 6,
-    transmission: "manual",
-    picture: "",
+    transmission: 'manual',
+    picture: '',
     price: 150,
   };
 
@@ -100,14 +100,14 @@ test("it test editCar controller", async () => {
   expect(mockService.editCar).toHaveBeenCalledWith(carData2);
   expect(mockService.editCar).toHaveBeenCalledTimes(1);
   expect(mockRedirect).toHaveBeenCalledTimes(1);
-  expect(mockRedirect).toHaveBeenCalledWith("/cars");
+  expect(mockRedirect).toHaveBeenCalledWith('/cars');
 });
 
-test("it test deleteCar controller", async () => {
+test('it test deleteCar controller', async () => {
   const mockRedirect = jest.fn();
   await controller.deleteCar({ params: { id: 1 } }, { redirect: mockRedirect });
   expect(mockService.deleteCar).toHaveBeenCalledWith(1);
   expect(mockService.deleteCar).toHaveBeenCalledTimes(1);
   expect(mockRedirect).toHaveBeenCalledTimes(1);
-  expect(mockRedirect).toHaveBeenCalledWith("/cars");
+  expect(mockRedirect).toHaveBeenCalledWith('/cars');
 });

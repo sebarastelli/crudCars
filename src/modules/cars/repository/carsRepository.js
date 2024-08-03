@@ -1,6 +1,10 @@
+const Car = require('../entity/Car.js');
+const carMapper = require('../mapper/carMapper.js');
+
 class CarsRepository {
   constructor(database) {
-    (this.tableName = "cars"), (this.database = database);
+    this.tableName = 'cars';
+    this.database = database;
   }
 
   getAllCars() {
@@ -18,10 +22,11 @@ class CarsRepository {
             price
             FROM ${this.tableName}
         `;
-    return this.database.prepare(carsData).all();
+    const rows = this.database.prepare(carsData).all();
+    return carMapper(rows);
   }
 
-  postCar(carData) {
+  postCar(car) {
     const data = `INSERT INTO ${this.tableName} (
             brand,
             model,
@@ -33,23 +38,35 @@ class CarsRepository {
             transmission,
             picture,
             price
-            )VALUES(
-            '${carData.brand}',
-            '${carData.model}',
-            ${carData.year},
-            ${carData.kms},
-            '${carData.color}',
-            '${carData.ac}',
-            ${carData.passengers},
-            '${carData.transmission}',
-            '${carData.picture}',
-            '${carData.price}'
-            )
-    `;
-    return this.database.prepare(data).run();
+            ) VALUES (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+            )`;
+    return this.database
+      .prepare(data)
+      .run(
+        car.brand,
+        car.model,
+        car.year,
+        car.kms,
+        car.color,
+        car.ac,
+        car.passengers,
+        car.transmission,
+        car.picture,
+        car.price,
+      );
   }
 
-  editCar(carData) {
+  editCar(car) {
     const updateCar = `
             UPDATE ${this.tableName} SET
                 brand = ?,
@@ -67,23 +84,23 @@ class CarsRepository {
     this.database
       .prepare(updateCar)
       .run(
-        carData.brand,
-        carData.model,
-        carData.year,
-        carData.kms,
-        carData.color,
-        carData.ac,
-        carData.passengers,
-        carData.transmission,
-        carData.picture,
-        carData.price,
-        carData.id,
+        car.brand,
+        car.model,
+        car.year,
+        car.kms,
+        car.color,
+        car.ac,
+        car.passengers,
+        car.transmission,
+        car.picture,
+        car.price,
+        car.id,
       );
   }
 
   deleteCar(id) {
-    const carToDelete = `DELETE FROM ${this.tableName} WHERE id=${id}`;
-    this.database.prepare(carToDelete).run();
+    const carToDelete = `DELETE FROM ${this.tableName} WHERE id=?`;
+    this.database.prepare(carToDelete).run(id);
   }
 
   getCarById(id) {
@@ -101,8 +118,23 @@ class CarsRepository {
             price
             FROM ${this.tableName} WHERE id=?
         `;
-    const car = this.database.prepare(carData).get(id);
-    return car;
+    const row = this.database.prepare(carData).get(id);
+    if (row) {
+      return new Car(
+        row.id,
+        row.brand,
+        row.model,
+        row.year,
+        row.kms,
+        row.color,
+        row.ac,
+        row.passengers,
+        row.transmission,
+        row.picture,
+        row.price,
+      );
+    }
+    return undefined;
   }
 }
 

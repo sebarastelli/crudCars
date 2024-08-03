@@ -1,89 +1,133 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
     <title>Register</title>
     <style>
-        .container {
-            max-width: 800px;
-        }
+      .container {
+        max-width: 800px;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="section">
-        <div class="container">
-            <div class="icon-team has-text-centered mb-4">
-                <a href="/cars" class="icon is-large">
-                    <i class="fas fa-home fa-2x"></i>
-                </a>
-            </div>
-            <h1 class="title is-1 has-text-centered">Register</h1>
-
-            <form action="/users/register" method="POST">
-                <div class="columns is-multiline">
-                    <div class="column is-half">
-                        <div class="field">
-                            <label class="label">First Name</label>
-                            <div class="control">
-                                <input class="input" type="text" name="name" placeholder="Enter your first name" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-half">
-                        <div class="field">
-                            <label class="label">Last Name</label>
-                            <div class="control">
-                                <input class="input" type="text" name="surname" placeholder="Enter your last name" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-half">
-                        <div class="field">
-                            <label class="label">Age</label>
-                            <div class="control">
-                                <input class="input" type="number" name="age" placeholder="Enter your age" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-half">
-                        <div class="field">
-                            <label class="label">Phone</label>
-                            <div class="control">
-                                <input class="input" type="tel" name="phone" placeholder="Enter your phone number" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-half">
-                        <div class="field">
-                            <label class="label">Email</label>
-                            <div class="control">
-                                <input class="input" type="email" name="email" placeholder="Enter your email" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-half">
-                        <div class="field">
-                            <label class="label">Document Number</label>
-                            <div class="control">
-                                <input class="input" type="text" name="document" placeholder="Enter your document number" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="field is-grouped is-grouped-centered mt-5">
-                    <div class="control">
-                        <button class="button is-link is-large">Submit</button>
-                    </div>
-                </div>
-            </form> 
+      <div class="container">
+        <div class="icon-team has-text-centered mb-4">
+          <a href="/cars" class="icon is-large">
+            <i class="fas fa-home fa-2x"></i>
+          </a>
         </div>
+        <h1 class="title is-1 has-text-centered">Register</h1>
+
+        <form action="/users/register" method="POST">
+          <div class="columns is-multiline">
+            <div class="column is-half">
+              <div class="field">
+                <label class="label">First Name</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    name="name"
+                    placeholder="Enter your first name"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="field">
+                <label class="label">Last Name</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    name="surname"
+                    placeholder="Enter your last name"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="field">
+                <label class="label">Age</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="number"
+                    name="age"
+                    placeholder="Enter your age"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="field">
+                <label class="label">Phone</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="tel"
+                    name="phone"
+                    placeholder="Enter your phone number"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="column is-half">
+              <div class="field">
+                <label class="label">Document Number</label>
+                <div class="control">
+                  <input
+                    class="input"
+                    type="text"
+                    name="document"
+                    placeholder="Enter your document number"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="field is-grouped is-grouped-centered mt-5">
+            <div class="control">
+              <button class="button is-link is-large">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-</body>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

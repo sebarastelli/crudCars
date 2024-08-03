@@ -6,7 +6,7 @@ class RentsController {
   }
 
   rentsRoutes(app) {
-    const root = "/rents";
+    const root = '/rents';
     app.get(`${root}`, this.rentsPage.bind(this));
     app.get(`${root}/rentForm`, this.rentsCarForm.bind(this));
     app.post(`${root}/rentForm`, this.rentCar.bind(this));
@@ -18,7 +18,7 @@ class RentsController {
   async rentsPage(req, res) {
     try {
       const rentedCars = await this.rentsService.getAllRents();
-      res.render("rents/views/allRents.html", { rentedCars });
+      res.render('rents/views/allRents.html', { rentedCars });
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +28,7 @@ class RentsController {
     try {
       const users = await this.userService.getAllUsers();
       const cars = await this.carsService.getAllCars();
-      res.render("rents/views/rentForm.html", { users, cars });
+      res.render('rents/views/rentForm.html', { users, cars });
     } catch (error) {
       console.log(error);
     }
@@ -49,7 +49,7 @@ class RentsController {
     };
     try {
       await this.rentsService.rentCar(rentData);
-      res.redirect("/rents");
+      res.redirect('/rents');
     } catch (error) {
       console.log(error);
     }
@@ -61,13 +61,13 @@ class RentsController {
       const rentData = await this.rentsService.getRentById(rentId);
       rentData.startDate = new Date(rentData.startDate)
         .toISOString()
-        .split("T")[0];
+        .split('T')[0];
       rentData.finishDate = new Date(rentData.finishDate)
         .toISOString()
-        .split("T")[0];
+        .split('T')[0];
       const cars = await this.carsService.getAllCars();
       const users = await this.userService.getAllUsers();
-      res.render("rents/views/editRent.html", { rentData, cars, users });
+      res.render('rents/views/editRent.html', { rentData, cars, users });
     } catch (error) {
       console.log(error);
     }
@@ -88,10 +88,10 @@ class RentsController {
     };
     try {
       await this.rentsService.editRent({ id, ...formData });
-      res.redirect("/rents");
+      res.redirect('/rents');
     } catch (error) {
       console.log(error);
-      res.status(500).send("Error al editar la renta");
+      res.status(500).send('Error al editar la renta');
     }
   }
 
@@ -99,7 +99,7 @@ class RentsController {
     const id = req.params.id;
     try {
       await this.rentsService.deleteRent(id);
-      res.redirect("/rents");
+      res.redirect('/rents');
     } catch (error) {
       console.log(error);
     }

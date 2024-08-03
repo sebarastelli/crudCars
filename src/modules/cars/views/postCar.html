@@ -1,124 +1,170 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+    />
     <title>Rent A Car</title>
-</head>
-<body>
+  </head>
+  <body>
     <section class="section">
-        <div class="container">
-            <div class="icon-team has-text-centered mb-4">
-                <a href="/cars" class="icon is-large">
-                    <i class="fas fa-home fa-2x"></i>
-                </a>
-            </div>
-            <h1 class="title is-1 has-text-centered">Add a Car</h1>
-            <div class="box">
-                <form action="/cars/postCar" method="POST" enctype="multipart/formData">
-                    <div class="columns is-multiline">
-                        <div class="column is-4">
-                            <div class="field">
-                                <label class="label">Brand</label>
-                                <div class="control">
-                                    <input class="input" type="text" name="brand" placeholder="Enter car brand">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-4">
-                            <div class="field">
-                                <label class="label">Model</label>
-                                <div class="control">
-                                    <input class="input" type="text" name="model" placeholder="Enter car model">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-4">
-                            <div class="field">
-                                <label class="label">Year</label>
-                                <div class="control">
-                                    <input class="input" type="number" name="year" placeholder="Enter car year">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-4">
-                            <div class="field">
-                                <label class="label">KMS</label>
-                                <div class="control">
-                                    <input class="input" type="number" name="kms" placeholder="Enter kilometers">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-4">
-                            <div class="field">
-                                <label class="label">Color</label>
-                                <div class="control">
-                                    <input class="input" type="text" name="color" placeholder="Enter car color">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-4">
-                            <div class="field">
-                                <label class="label">Air Conditioner</label>
-                                <div class="control">
-                                    <div class="select is-fullwidth">
-                                        <select name="ac">
-                                            <option>Yes</option>
-                                            <option>No</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-4">
-                            <div class="field">
-                                <label class="label">Type</label>
-                                <div class="control">
-                                    <div class="select is-fullwidth">
-                                        <select name="transmission">
-                                            <option>Manual</option>
-                                            <option>Automatic</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-4">
-                            <div class="field">
-                                <label class="label">Passengers</label>
-                                <div class="control">
-                                    <input class="input" type="number" name="passengers" placeholder="Enter number of passengers">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-4">
-                            <div class="field">
-                                <label class="label">Car Image</label>
-                                <div class="control">
-                                    <input class="input" type="text" name="picture">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="column is-4">
-                            <div class="field">
-                                <label class="label">Price/Day</label>
-                                <div class="control">
-                                    <input class="input" type="number" name="price" placeholder="Enter price per day" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field is-grouped is-grouped-centered">
-                        <div class="control">
-                            <button class="button is-link">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+      <div class="container">
+        <div class="icon-team has-text-centered mb-4">
+          <a href="/cars" class="icon is-large">
+            <i class="fas fa-home fa-2x"></i>
+          </a>
         </div>
+        <h1 class="title is-1 has-text-centered">Add a Car</h1>
+        <div class="box">
+          <form
+            action="/cars/postCar"
+            method="POST"
+            enctype="multipart/formData"
+          >
+            <div class="columns is-multiline">
+              <div class="column is-4">
+                <div class="field">
+                  <label class="label">Brand</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      name="brand"
+                      placeholder="Enter car brand"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="field">
+                  <label class="label">Model</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      name="model"
+                      placeholder="Enter car model"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="field">
+                  <label class="label">Year</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="number"
+                      name="year"
+                      placeholder="Enter car year"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="field">
+                  <label class="label">KMS</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="number"
+                      name="kms"
+                      placeholder="Enter kilometers"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="field">
+                  <label class="label">Color</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="text"
+                      name="color"
+                      placeholder="Enter car color"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="field">
+                  <label class="label">Air Conditioner</label>
+                  <div class="control">
+                    <div class="select is-fullwidth">
+                      <select name="ac">
+                        <option>Yes</option>
+                        <option>No</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="field">
+                  <label class="label">Type</label>
+                  <div class="control">
+                    <div class="select is-fullwidth">
+                      <select name="transmission">
+                        <option>Manual</option>
+                        <option>Automatic</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="field">
+                  <label class="label">Passengers</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="number"
+                      name="passengers"
+                      placeholder="Enter number of passengers"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="field">
+                  <label class="label">Car Image</label>
+                  <div class="control">
+                    <input class="input" type="text" name="picture" />
+                  </div>
+                </div>
+              </div>
+              <div class="column is-4">
+                <div class="field">
+                  <label class="label">Price/Day</label>
+                  <div class="control">
+                    <input
+                      class="input"
+                      type="number"
+                      name="price"
+                      placeholder="Enter price per day"
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field is-grouped is-grouped-centered">
+              <div class="control">
+                <button class="button is-link">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </section>
-</body>
+  </body>
 </html>

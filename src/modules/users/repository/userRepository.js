@@ -1,6 +1,6 @@
 class UserRepository {
   constructor(database) {
-    (this.tableName = "users"), (this.database = database);
+    (this.tableName = 'users'), (this.database = database);
   }
 
   getAllUsers() {

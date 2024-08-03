@@ -40,7 +40,13 @@ export default [
       'jest/no-identical-title': 'error',
       'jest/prefer-to-have-length': 'warn',
       'jest/valid-expect': 'error',
-      'prettier/prettier': ['error'],
+      'prettier/prettier': [
+        'error',
+        {
+          singleQuote: true,
+          endOfLine: 'auto',
+        },
+      ],
     },
   },
   pluginJs.configs.recommended,

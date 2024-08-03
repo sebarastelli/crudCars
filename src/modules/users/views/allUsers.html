@@ -1,33 +1,47 @@
-{% extends "./users.html" %} 
-
-{% block users %} 
+{% extends "./users.html" %} {% block users %}
 <tbody>
   {% for user in usersData %}
-    <tr>
-      <td class="has-text-centered is-size-5">{{ user.id }}</td>
-      <td class="has-text-centered is-size-5">{% if user.name !== '' %}{{ user.name }}{% else %} - {% endif %}</td>
-      <td class="has-text-centered is-size-5">{% if user.surname !== '' %}{{ user.surname }}{% else %} - {% endif %}</td>
-      <td class="has-text-centered is-size-5">{% if user.age !== '' %}{{ user.age }}{% else %} - {% endif %}</td>
-      <td class="has-text-centered is-size-5">{% if user.phone !== '' %}{{ user.phone }}{% else %} - {% endif %}</td>
-      <td class="has-text-centered is-size-5">{% if user.email !== '' %}{{ user.email }}{% else %} - {% endif %}</td>
-      <td class="has-text-centered is-size-5">{% if user.document !== '' %}{{ user.document }}{% else %} - {% endif %}</td>
-      <td class="has-text-centered is-size-5">
-        <div class="buttons are-small is-centered">
-          <a class="button is-warning is-small" href='/users/editUser/{{ user.id }}'>EDIT</a>
-          <a class="button is-danger is-small" href="/users/deleteUser/{{ user.id }}">DELETE</a>
-        </div>
-      </td>
-    </tr>
+  <tr>
+    <td class="has-text-centered is-size-5">{{ user.id }}</td>
+    <td class="has-text-centered is-size-5">
+      {% if user.name !== '' %}{{ user.name }}{% else %} - {% endif %}
+    </td>
+    <td class="has-text-centered is-size-5">
+      {% if user.surname !== '' %}{{ user.surname }}{% else %} - {% endif %}
+    </td>
+    <td class="has-text-centered is-size-5">
+      {% if user.age !== '' %}{{ user.age }}{% else %} - {% endif %}
+    </td>
+    <td class="has-text-centered is-size-5">
+      {% if user.phone !== '' %}{{ user.phone }}{% else %} - {% endif %}
+    </td>
+    <td class="has-text-centered is-size-5">
+      {% if user.email !== '' %}{{ user.email }}{% else %} - {% endif %}
+    </td>
+    <td class="has-text-centered is-size-5">
+      {% if user.document !== '' %}{{ user.document }}{% else %} - {% endif %}
+    </td>
+    <td class="has-text-centered is-size-5">
+      <div class="buttons are-small is-centered">
+        <a
+          class="button is-warning is-small"
+          href="/users/editUser/{{ user.id }}"
+          >EDIT</a
+        >
+        <a
+          class="button is-danger is-small"
+          href="/users/deleteUser/{{ user.id }}"
+          >DELETE</a
+        >
+      </div>
+    </td>
+  </tr>
   {% endfor %}
 </tbody>
 
 {% for error in errors %}
-  <div class="notification is-danger">
-    {% if error == 'FOREIGN KEY constraint failed' %}
-      If user rented a car, it cannot be deleted.
-    {% else %}
-      {{ error }}
-    {% endif %}
-  </div>
-{% endfor %}
-{% endblock %}
+<div class="notification is-danger">
+  {% if error == 'FOREIGN KEY constraint failed' %} If user rented a car, it
+  cannot be deleted. {% else %} {{ error }} {% endif %}
+</div>
+{% endfor %} {% endblock %}
