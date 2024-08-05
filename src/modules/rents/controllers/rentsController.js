@@ -64,8 +64,7 @@ class RentsController {
     try {
       const rentId = req.params.id;
       const rentData = req.body;
-      const updatedRentData = { id: rentId, ...rentData };
-      await this.rentsService.editRent(updatedRentData);
+      await this.rentsService.editRent(rentId, rentData);
       res.redirect('/rents');
     } catch (error) {
       console.log(error);

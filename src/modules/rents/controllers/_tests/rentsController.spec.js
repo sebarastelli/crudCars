@@ -166,20 +166,24 @@ test('it test editRent controller', async () => {
       user: 456,
       startDate: '2024-07-01',
       finishDate: '2024-07-10',
+      totalDays: 9,
     },
   };
   const res = {
     redirect: mockRedirect,
   };
-  await controller.editRent(req, res);
+
   const expectedFormData = {
-    id: 1,
     car: 123,
     user: 456,
     startDate: '2024-07-01',
     finishDate: '2024-07-10',
+    totalDays: 9,
   };
-  expect(mockService.editRent).toHaveBeenCalledWith(expectedFormData);
+
+  await controller.editRent(req, res);
+
+  expect(mockService.editRent).toHaveBeenCalledWith(1, expectedFormData);
   expect(mockService.editRent).toHaveBeenCalledTimes(1);
   expect(mockRedirect).toHaveBeenCalledWith('/rents');
   expect(mockRedirect).toHaveBeenCalledTimes(1);
