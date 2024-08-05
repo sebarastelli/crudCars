@@ -28,8 +28,10 @@ console.log('userService:', container.get('userService'));
 console.log('carsService:', container.get('carsService'));
 console.log('rentsService:', container.get('rentsService'));
 
-carModule.initCars(app, container);
 userModule.initUsers(app, container);
+carModule.initCars(app, container);
 rentsModule.initRent(app, container);
 
-app.listen(port);
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

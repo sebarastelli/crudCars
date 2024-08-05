@@ -19,6 +19,22 @@ const mockService = {
       finishDate: '2024-07-10T00:00:00.000Z',
     }),
   ),
+  getEditRentFormDetails: jest.fn(() =>
+    Promise.resolve({
+      rentData: {
+        startDate: '2024-07-01',
+        finishDate: '2024-07-10',
+      },
+      users: [],
+      cars: [],
+    }),
+  ),
+  getRentFormDetails: jest.fn(() =>
+    Promise.resolve({
+      users: [],
+      cars: [],
+    }),
+  ),
 };
 
 const controller = new RentsController(
@@ -69,9 +85,9 @@ test('it test rentsPage', async () => {
   });
 });
 
-test('it test rentCarForm render', async () => {
+test('it test rentForm render', async () => {
   const mockRender = jest.fn();
-  await controller.rentsCarForm({}, { render: mockRender });
+  await controller.rentForm({}, { render: mockRender });
   expect(mockRender).toHaveBeenCalledTimes(1);
   expect(mockRender).toHaveBeenCalledWith('rents/views/rentForm.html', {
     cars: [],
@@ -94,12 +110,10 @@ test('it test rentCar controller', async () => {
   };
   await controller.rentCar(req, res);
   const expectedRentData = {
-    id: expect.any(Number),
-    fk_car: 1,
-    fk_user: 2,
-    startDate: new Date('2024-07-01').toISOString(),
-    finishDate: new Date('2024-07-10').toISOString(),
-    totalDays: 9,
+    car: 1,
+    user: 2,
+    startDate: '2024-07-01',
+    finishDate: '2024-07-10',
   };
   expect(mockService.rentCar).toHaveBeenCalledWith(expectedRentData);
   expect(mockService.rentCar).toHaveBeenCalledTimes(1);
@@ -111,19 +125,34 @@ test('it test editRentForm render', async () => {
   const mockRender = jest.fn();
   const req = { params: { id: 1 } };
   const res = { render: mockRender };
+
+  mockService.getEditRentFormDetails = jest.fn(() =>
+    Promise.resolve({
+      rentData: {
+        startDate: '2024-07-01',
+        finishDate: '2024-07-10',
+      },
+      users: [],
+      cars: [],
+    }),
+  );
+
   await controller.editRentForm(req, res);
+
   const expectedRentData = {
     startDate: '2024-07-01',
     finishDate: '2024-07-10',
   };
-  expect(mockService.getRentById).toHaveBeenCalledWith(1);
-  expect(mockService.getRentById).toHaveBeenCalledTimes(1);
+
+  expect(mockService.getEditRentFormDetails).toHaveBeenCalledWith(1);
+  expect(mockService.getEditRentFormDetails).toHaveBeenCalledTimes(1);
   expect(mockCarsService.getAllCars).toHaveBeenCalledTimes(1);
   expect(mockUsersService.getAllUsers).toHaveBeenCalledTimes(1);
+
   expect(mockRender).toHaveBeenCalledWith('rents/views/editRent.html', {
     rentData: expectedRentData,
-    cars: [],
     users: [],
+    cars: [],
   });
   expect(mockRender).toHaveBeenCalledTimes(1);
 });
@@ -145,11 +174,10 @@ test('it test editRent controller', async () => {
   await controller.editRent(req, res);
   const expectedFormData = {
     id: 1,
-    fk_car: 123,
-    fk_user: 456,
+    car: 123,
+    user: 456,
     startDate: '2024-07-01',
     finishDate: '2024-07-10',
-    totalDays: 9,
   };
   expect(mockService.editRent).toHaveBeenCalledWith(expectedFormData);
   expect(mockService.editRent).toHaveBeenCalledTimes(1);

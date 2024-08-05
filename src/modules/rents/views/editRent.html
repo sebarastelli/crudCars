@@ -1,131 +1,99 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
-    />
-    <link rel="stylesheet" href="/public/normalize.css" />
-    <title>Edit Rent</title>
-  </head>
-  <body>
-    <section class="section">
-      <div class="container">
-        <div class="has-text-centered">
-          <a href="/" class="icon is-large">
-            <i class="fas fa-home fa-2x"></i>
-          </a>
-        </div>
-        <h1 class="title is-1 has-text-centered">Edit Rent</h1>
 
-        {% block content %}
-        <div class="box">
-          <form action="/rents/editRent/{{ rentData.id }}" method="POST">
-            <div class="columns">
-              <div class="column is-6">
-                <div class="field">
-                  <label class="label">CHOOSE CAR</label>
-                  <div class="control">
-                    <div class="select is-fullwidth">
-                      <select name="car" required>
-                        {% for car in cars %}
-                        <option
-                          value="{{ car.id }}"
-                          {%
-                          if
-                          car.id=""
-                          ="rentData.fk_car"
-                          %}selected{%
-                          endif
-                          %}
-                        >
-                          {{ car.brand }} / {{ car.model }} / {{ car.year }} /
-                          {{ car.kms }} kms / {{ car.color }} / {% if car.ac ==
-                          "Yes" %} AC {% else %} NO AC {% endif %} / {{
-                          car.passengers }} / {{ car.transmission }} / $${{
-                          car.price }}
-                        </option>
-                        {% endfor %}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" />
+  <link rel="stylesheet" href="/public/normalize.css" />
+  <title>Edit Rent</title>
+</head>
 
-              <div class="column is-6">
-                <div class="field">
-                  <label class="label">USER</label>
-                  <div class="control">
-                    <div class="select is-fullwidth">
-                      <select name="user" required>
-                        {% for user in users %}
-                        <option
-                          value="{{ user.id }}"
-                          {%
-                          if
-                          user.id=""
-                          ="rentData.fk_user"
-                          %}selected{%
-                          endif
-                          %}
-                        >
-                          {{ user.name }} {{ user.surname }} {{ user.document }}
-                        </option>
-                        {% endfor %}
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="columns">
-              <div class="column is-6">
-                <div class="field">
-                  <label class="label">START DATE</label>
-                  <div class="control">
-                    <input
-                      class="input"
-                      type="date"
-                      name="startDate"
-                      value="{{ rentData.startDate }}"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-              <div class="column is-6">
-                <div class="field">
-                  <label class="label">FINISH DATE</label>
-                  <div class="control">
-                    <input
-                      class="input"
-                      type="date"
-                      name="finishDate"
-                      value="{{ rentData.finishDate }}"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="field is-grouped is-grouped-centered">
-              <div class="control">
-                <button class="button is-link">Submit</button>
-              </div>
-            </div>
-          </form>
-        </div>
-        {% endblock %}
+<body>
+  <section class="section">
+    <div class="container">
+      <div class="has-text-centered">
+        <a href="/" class="icon is-large">
+          <i class="fas fa-home fa-2x"></i>
+        </a>
       </div>
-    </section>
-  </body>
+      <h1 class="title is-1 has-text-centered">Edit Rent</h1>
+
+      {% block content %}
+      <div class="box">
+        <form action="/rents/editRent/{{ rentData.id }}" method="POST">
+          <div class="columns">
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">CHOOSE CAR</label>
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select name="car" required>
+                      {% for car in cars %}
+                      <option value="{{ car.id }}" {% if car.id==rentData.fk_car %}selected{% endif %}>
+                        {{ car.brand }} / {{ car.model }} / {{ car.year }} /
+                        {{ car.kms }} kms / {{ car.color }} / {% if car.ac == "Yes" %} AC {% else %} NO AC {% endif %} /
+                        {{
+                        car.passengers }} / {{ car.transmission }} / ${{ car.price }}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">USER</label>
+                <div class="control">
+                  <div class="select is-fullwidth">
+                    <select name="user" required>
+                      {% for user in users %}
+                      <option value="{{ user.id }}" {% if user.id==rentData.fk_user %}selected{% endif %}>
+                        {{ user.name }} {{ user.surname }} {{ user.document }}
+                      </option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="columns">
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">START DATE</label>
+                <div class="control">
+                  <input class="input" type="date" name="startDate" value="{{ rentData.startDate.split('T')[0] }}"
+                    required />
+                </div>
+              </div>
+            </div>
+            <div class="column is-6">
+              <div class="field">
+                <label class="label">FINISH DATE</label>
+                <div class="control">
+                  <input class="input" type="date" name="finishDate" value="{{ rentData.finishDate.split('T')[0] }}"
+                    required />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field is-grouped is-grouped-centered">
+            <div class="control">
+              <button class="button is-link">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      {% endblock %}
+    </div>
+  </section>
+</body>
+
 </html>

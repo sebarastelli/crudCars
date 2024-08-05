@@ -8,7 +8,7 @@ class RentsController {
   rentsRoutes(app) {
     const root = '/rents';
     app.get(`${root}`, this.rentsPage.bind(this));
-    app.get(`${root}/rentForm`, this.rentsCarForm.bind(this));
+    app.get(`${root}/rentForm`, this.rentForm.bind(this));
     app.post(`${root}/rentForm`, this.rentCar.bind(this));
     app.get(`${root}/editRent/:id`, this.editRentForm.bind(this));
     app.post(`${root}/editRent/:id`, this.editRent.bind(this));
@@ -21,73 +21,51 @@ class RentsController {
       res.render('rents/views/allRents.html', { rentedCars });
     } catch (error) {
       console.log(error);
+      res.status(500).send('Error al obtener las rentas');
     }
   }
 
-  async rentsCarForm(req, res) {
+  async rentForm(req, res) {
     try {
-      const users = await this.userService.getAllUsers();
-      const cars = await this.carsService.getAllCars();
+      const { users, cars } = await this.rentsService.getRentFormDetails();
       res.render('rents/views/rentForm.html', { users, cars });
     } catch (error) {
       console.log(error);
+      res.status(500).send('Error al cargar el formulario de renta');
     }
   }
 
   async rentCar(req, res) {
-    const { car, user, startDate, finishDate } = req.body;
-    const totalDays = Math.ceil(
-      (new Date(finishDate) - new Date(startDate)) / (1000 * 60 * 60 * 24),
-    );
-    const rentData = {
-      id: Date.now(),
-      fk_car: car,
-      fk_user: user,
-      startDate: new Date(startDate).toISOString(),
-      finishDate: new Date(finishDate).toISOString(),
-      totalDays,
-    };
     try {
+      const rentData = req.body;
       await this.rentsService.rentCar(rentData);
       res.redirect('/rents');
     } catch (error) {
       console.log(error);
+      res.status(500).send('Error al registrar la renta');
     }
   }
 
   async editRentForm(req, res) {
     try {
       const rentId = req.params.id;
-      const rentData = await this.rentsService.getRentById(rentId);
-      rentData.startDate = new Date(rentData.startDate)
-        .toISOString()
-        .split('T')[0];
-      rentData.finishDate = new Date(rentData.finishDate)
-        .toISOString()
-        .split('T')[0];
-      const cars = await this.carsService.getAllCars();
-      const users = await this.userService.getAllUsers();
-      res.render('rents/views/editRent.html', { rentData, cars, users });
+      const { rentData, users, cars } =
+        await this.rentsService.getEditRentFormDetails(rentId);
+      await this.carsService.getAllCars();
+      await this.userService.getAllUsers();
+      res.render('rents/views/editRent.html', { rentData, users, cars });
     } catch (error) {
       console.log(error);
+      res.status(500).send('Error al cargar el formulario de edición de renta');
     }
   }
 
   async editRent(req, res) {
-    const id = req.params.id;
-    const { car, user, startDate, finishDate } = req.body;
-    const totalDays = Math.ceil(
-      (new Date(finishDate) - new Date(startDate)) / (1000 * 60 * 60 * 24),
-    );
-    const formData = {
-      fk_car: car,
-      fk_user: user,
-      startDate,
-      finishDate,
-      totalDays,
-    };
     try {
-      await this.rentsService.editRent({ id, ...formData });
+      const rentId = req.params.id;
+      const rentData = req.body;
+      const updatedRentData = { id: rentId, ...rentData };
+      await this.rentsService.editRent(updatedRentData);
       res.redirect('/rents');
     } catch (error) {
       console.log(error);
@@ -96,12 +74,13 @@ class RentsController {
   }
 
   async deleteRent(req, res) {
-    const id = req.params.id;
     try {
-      await this.rentsService.deleteRent(id);
+      const rentId = req.params.id;
+      await this.rentsService.deleteRent(rentId);
       res.redirect('/rents');
     } catch (error) {
       console.log(error);
+      res.status(500).send('Error al eliminar la renta');
     }
   }
 }

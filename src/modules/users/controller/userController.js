@@ -1,4 +1,4 @@
-class userController {
+class UserController {
   constructor(userService) {
     this.userService = userService;
   }
@@ -14,20 +14,17 @@ class userController {
   }
 
   async userPage(req, res) {
-    const usersData = await this.userService.getAllUsers();
-    console.log(usersData);
     try {
-      res.render('users/views/allUsers.html', {
-        usersData,
-      });
+      const usersData = await this.userService.getAllUsers();
+      res.render('users/views/allUsers.html', { usersData });
     } catch (error) {
       res.render('users/views/allUsers.html', {
-        error,
+        error: 'Error retrieving users.',
       });
     }
   }
 
-  async registerUserForm(req, res) {
+  registerUserForm(req, res) {
     res.render('users/views/register.html');
   }
 
@@ -35,19 +32,18 @@ class userController {
     try {
       const formData = req.body;
       await this.userService.createUser(formData);
+      res.redirect('/users');
     } catch (e) {
       req.session.errors = [e.message];
+      res.redirect('/users/register');
     }
-    res.redirect('/users');
   }
 
   async editUserForm(req, res) {
     const id = req.params['id'];
     try {
       const userData = await this.userService.getUserById(id);
-      res.render('users/views/edit.html', {
-        userData,
-      });
+      res.render('users/views/edit.html', { userData });
     } catch (e) {
       req.session.errors = [e.message];
       res.redirect('/users');
@@ -69,17 +65,19 @@ class userController {
       res.redirect('/users');
     } catch (e) {
       req.session.errors = [e.message];
+      res.redirect(`/users/editUser/${req.params.id}`);
     }
   }
 
   async deleteUser(req, res) {
     try {
       await this.userService.deleteUser(req.params['id']);
+      res.redirect('/users');
     } catch (e) {
       req.session.errors = [e.message];
+      res.redirect('/users');
     }
-    res.redirect('/users');
   }
 }
 
-module.exports = userController;
+module.exports = UserController;

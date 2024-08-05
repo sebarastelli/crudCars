@@ -71,7 +71,11 @@ function addRentsDefinitions(container) {
       use('carsService'),
       use('userService'),
     ),
-    rentsService: object(RentsService).construct(use('rentsRepository')),
+    rentsService: object(RentsService).construct(
+      use('rentsRepository'),
+      use('carsService'),
+      use('userService'),
+    ),
     rentsRepository: object(RentsRepository).construct(use('runDatabase')),
   });
 }

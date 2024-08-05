@@ -7,11 +7,9 @@ class CarsService {
 
   async getAllCars() {
     try {
-      const cars = await this.carsRepository.getAllCars();
-      return cars;
+      return await this.carsRepository.getAllCars();
     } catch (error) {
-      console.error('Error getting all cars:', error);
-      throw new Error('Unable to retrieve cars.');
+      this.handleError(error, 'Unable to retrieve cars.');
     }
   }
 
@@ -32,8 +30,7 @@ class CarsService {
       );
       await this.carsRepository.postCar(car);
     } catch (error) {
-      console.error('Error posting car:', error);
-      throw new Error('Unable to add new car.');
+      this.handleError(error, 'Unable to add new car.');
     }
   }
 
@@ -54,8 +51,7 @@ class CarsService {
       );
       await this.carsRepository.editCar(car);
     } catch (error) {
-      console.error('Error editing car:', error);
-      throw new Error('Unable to update car details.');
+      this.handleError(error, 'Unable to update car details.');
     }
   }
 
@@ -63,8 +59,7 @@ class CarsService {
     try {
       await this.carsRepository.deleteCar(id);
     } catch (error) {
-      console.error('Error deleting car:', error);
-      throw new Error('Unable to delete car.');
+      this.handleError(error, 'Unable to delete car.');
     }
   }
 
@@ -85,9 +80,13 @@ class CarsService {
         carData.price,
       );
     } catch (error) {
-      console.error('Error getting car by ID:', error);
-      throw new Error('Unable to retrieve car details.');
+      this.handleError(error, 'Unable to retrieve car details.');
     }
+  }
+
+  handleError(error, message) {
+    console.error(message, error);
+    throw new Error(message);
   }
 }
 

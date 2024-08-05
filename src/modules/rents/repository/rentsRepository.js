@@ -1,3 +1,6 @@
+const Rent = require('../entity/Rent.js');
+const rentMapper = require('../mapper/rentMapper.js');
+
 class RentsRepository {
   constructor(database) {
     this.tableName = 'rents';
@@ -5,73 +8,46 @@ class RentsRepository {
   }
 
   getAllRents() {
-    const data = `
-        SELECT
-            rents.id,
-            cars.brand,
-            cars.model,
-            cars.year,
-            cars.kms,
-            cars.color,
-            cars.ac,
-            cars.passengers,
-            cars.transmission,
-            cars.picture,
-            cars.price,
-            users.name,
-            users.surname,
-            users.document,
-            rents.startDate,
-            rents.finishDate,
-            rents.totalDays
-        FROM rents
-        INNER JOIN cars ON rents.fk_car = cars.id
-        INNER JOIN users ON rents.fk_user = users.id
-    `;
-    return this.database.prepare(data).all();
+    const query = `
+    SELECT rents.id AS rent_id, cars.*, users.*, rents.startDate, rents.finishDate, rents.totalDays
+    FROM rents
+    INNER JOIN cars ON rents.fk_car = cars.id
+    INNER JOIN users ON rents.fk_user = users.id
+  `;
+    const rows = this.database.prepare(query).all();
+    return rentMapper(rows);
   }
 
   rentCar(rentData) {
-    const data = `
-        INSERT INTO ${this.tableName} (
-            id,
-            fk_car,
-            fk_user,
-            startDate,
-            finishDate,
-            totalDays
-        ) VALUES (
-            @id,
-            @fk_car,
-            @fk_user,
-            @startDate,
-            @finishDate,
-            @totalDays
-        )
-    `;
-    const stmt = this.database.prepare(data);
-    return stmt.run(rentData);
+    const query = `
+    INSERT INTO ${this.tableName} (id, fk_car, fk_user, startDate, finishDate, totalDays)
+    VALUES (@id, @fk_car, @fk_user, @startDate, @finishDate, @totalDays)
+  `;
+    return this.database.prepare(query).run(rentData);
   }
 
   editRent(id, formData) {
-    const data = `UPDATE ${this.tableName} SET
-    fk_car = ${formData.fk_car},
-    fk_user = ${formData.fk_user},
-    startDate = '${formData.startDate}',
-    finishDate = '${formData.finishDate}',
-    totalDays = ${formData.totalDays}
-    WHERE id = ${id}`;
-    return this.database.prepare(data).run();
+    const query = `
+      UPDATE ${this.tableName} SET
+      fk_car = @fk_car,
+      fk_user = @fk_user,
+      startDate = @startDate,
+      finishDate = @finishDate,
+      totalDays = @totalDays
+      WHERE id = @id
+    `;
+    return this.database.prepare(query).run({ id, ...formData });
   }
 
   deleteRent(id) {
-    const data = `DELETE FROM ${this.tableName} WHERE id = ${id}`;
-    return this.database.prepare(data).run();
+    const query = `DELETE FROM ${this.tableName} WHERE id = ?`;
+    return this.database.prepare(query).run(id);
   }
 
   getRentById(id) {
-    const data = `SELECT * FROM ${this.tableName} WHERE id = ${id}`;
-    return this.database.prepare(data).get();
+    const query = `SELECT * FROM ${this.tableName} WHERE id = ?`;
+    const row = this.database.prepare(query).get(id);
+    return row ? new Rent(row) : undefined;
   }
 }
 

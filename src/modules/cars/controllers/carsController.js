@@ -1,4 +1,4 @@
-class carsController {
+class CarsController {
   constructor(carsService) {
     this.carsService = carsService;
   }
@@ -16,17 +16,15 @@ class carsController {
   async carsPage(req, res) {
     try {
       const carsData = await this.carsService.getAllCars();
-      res.render('cars/views/viewCars.html', {
-        carsData,
-      });
+      res.render('cars/views/viewCars.html', { carsData });
     } catch (error) {
       res.render('cars/views/viewCars.html', {
-        error,
+        error: 'Error retrieving cars.',
       });
     }
   }
 
-  async postCarForm(req, res) {
+  postCarForm(req, res) {
     res.render('cars/views/postCar.html');
   }
 
@@ -34,21 +32,20 @@ class carsController {
     try {
       const formData = req.body;
       await this.carsService.postCar(formData);
+      res.redirect('/cars');
     } catch (e) {
       req.session.errors = [e.message];
+      res.redirect('/cars/postCar');
     }
-    res.redirect('/cars');
   }
 
   async editCarForm(req, res) {
     try {
       const carData = await this.carsService.getCarById(req.params.id);
-      res.render('cars/views/editCar.html', {
-        carData,
-      });
+      res.render('cars/views/editCar.html', { carData });
     } catch (e) {
       req.session.errors = [e.message];
-      res.redirect('/');
+      res.redirect('/cars');
     }
   }
 
@@ -62,17 +59,19 @@ class carsController {
       res.redirect('/cars');
     } catch (e) {
       req.session.errors = [e.message];
+      res.redirect(`/cars/editCar/${req.params.id}`);
     }
   }
 
   async deleteCar(req, res) {
     try {
       await this.carsService.deleteCar(req.params.id);
+      res.redirect('/cars');
     } catch (e) {
       req.session.errors = [e.message];
+      res.redirect('/cars');
     }
-    res.redirect('/cars');
   }
 }
 
-module.exports = carsController;
+module.exports = CarsController;
