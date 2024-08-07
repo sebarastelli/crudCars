@@ -1,10 +1,23 @@
 class RentsController {
+  /**
+   * Initializes a new instance of the class with the specified rents service, cars service, and user service.
+   *
+   * @param {Object} rentsService - The rents service to be used by the class.
+   * @param {Object} carsService - The cars service to be used by the class.
+   * @param {Object} userService - The user service to be used by the class.
+   */
   constructor(rentsService, carsService, userService) {
     this.rentsService = rentsService;
     this.carsService = carsService;
     this.userService = userService;
   }
 
+  /**
+   * Configures the application routes for rent-related operations.
+   *
+   * @param {Object} app - The application instance to configure routes for.
+   * @return {void}
+   */
   rentsRoutes(app) {
     const root = '/rents';
     app.get(`${root}`, this.rentsPage.bind(this));

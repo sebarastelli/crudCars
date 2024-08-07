@@ -1,4 +1,11 @@
 class RentsService {
+  /**
+   * Initializes a new instance of the RentsService class.
+   *
+   * @param {Object} rentsRepository - The repository for managing rents.
+   * @param {Object} carsService - The service for managing cars.
+   * @param {Object} userService - The service for managing users.
+   */
   constructor(rentsRepository, carsService, userService) {
     this.rentsRepository = rentsRepository;
     this.carsService = carsService;

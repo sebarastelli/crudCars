@@ -1,6 +1,11 @@
 const User = require('../entity/User.js');
 
 class UserService {
+  /**
+   * Creates a new instance of the UserService class.
+   *
+   * @param {Object} userRepository - The repository object for user data.
+   */
   constructor(userRepository) {
     this.userRepository = userRepository;
   }

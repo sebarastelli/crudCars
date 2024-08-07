@@ -2,6 +2,11 @@ const Rent = require('../entity/Rent.js');
 const rentMapper = require('../mapper/rentMapper.js');
 
 class RentsRepository {
+  /**
+   * Creates a new instance of the RentsRepository class.
+   *
+   * @param {Object} database - The database object to use for interacting with the database.
+   */
   constructor(database) {
     this.tableName = 'rents';
     this.database = database;

@@ -1,6 +1,11 @@
 const Car = require('../entity/Car.js');
 
 class CarsService {
+  /**
+   * Initializes a new instance of the CarsService class.
+   *
+   * @param {object} carsRepository - The cars repository instance.
+   */
   constructor(carsRepository) {
     this.carsRepository = carsRepository;
   }

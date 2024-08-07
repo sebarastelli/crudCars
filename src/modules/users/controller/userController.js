@@ -1,8 +1,19 @@
 class UserController {
+  /**
+   * Initializes a new instance of the UserController class.
+   *
+   * @param {Object} userService - The service for managing users.
+   */
   constructor(userService) {
     this.userService = userService;
   }
 
+  /**
+   * Registers the user routes for the application.
+   *
+   * @param {Object} app - The Express application object.
+   * @return {void} This function does not return anything.
+   */
   userRoutes(app) {
     const root = `/users`;
     app.get(`${root}`, this.userPage.bind(this));

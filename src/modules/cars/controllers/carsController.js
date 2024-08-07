@@ -1,8 +1,19 @@
 class CarsController {
+  /**
+   * Creates an instance of the class with the provided carsService.
+   *
+   * @param {Object} carsService - The service object for cars.
+   */
   constructor(carsService) {
     this.carsService = carsService;
   }
 
+  /**
+   * Defines the routes for the cars module.
+   *
+   * @param {Object} app - The Express application object.
+   * @return {void} This function does not return anything.
+   */
   carsRoutes(app) {
     const root = '/cars';
     app.get(`${root}`, this.carsPage.bind(this));

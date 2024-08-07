@@ -2,6 +2,11 @@ const User = require('../entity/User.js');
 const userMapper = require('../mapper/userMapper.js');
 
 class UserRepository {
+  /**
+   * Creates a new instance of the UserRepository class.
+   *
+   * @param {Object} database - The database object to use for interacting with the database.
+   */
   constructor(database) {
     this.tableName = 'users';
     this.database = database;

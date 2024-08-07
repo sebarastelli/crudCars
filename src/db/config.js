@@ -19,6 +19,11 @@ const {
   RentsRepository,
 } = require('../modules/rents/rentsModule');
 
+/**
+ * Runs the database connection and returns the database instance.
+ *
+ * @return {database} The database instance.
+ */
 function runDatabase() {
   const dbPath =
     process.env.NODE_ENV === 'test' ? ':memory:' : process.env.DB_PATH;
@@ -30,6 +35,11 @@ function runDatabase() {
   return dataBase;
 }
 
+/**
+ * Configures the session options for the application.
+ *
+ * @return {function} A session middleware function.
+ */
 function configureSession() {
   const ONE_WEEK_IN_SECONDS = 604800000;
   const sessionOptions = {
@@ -80,6 +90,11 @@ function addRentsDefinitions(container) {
   });
 }
 
+/**
+ * Configures the dependency injection container and returns it.
+ *
+ * @return {DIContainer} The configured dependency injection container.
+ */
 module.exports = function configureDI() {
   const container = new DIContainer();
   addCommonDefinitions(container);

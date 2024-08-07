@@ -2,6 +2,11 @@ const Car = require('../entity/Car.js');
 const carMapper = require('../mapper/carMapper.js');
 
 class CarsRepository {
+  /**
+   * Creates a new instance of the CarsRepository class.
+   *
+   * @param {Object} database - The database object to use for interacting with the database.
+   */
   constructor(database) {
     this.tableName = 'cars';
     this.database = database;

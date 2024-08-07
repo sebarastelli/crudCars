@@ -1,5 +1,11 @@
 const Rent = require('../entity/Rent');
 
+/**
+ * Maps an array of row objects to an array of Rent objects.
+ *
+ * @param {Array} rows - An array of row objects.
+ * @return {Array} An array of Rent objects.
+ */
 function rentMapper(rows) {
   return rows.map(
     (row) =>
