@@ -1,6 +1,5 @@
 require('dotenv').config({ path: '../../.env' });
-const database = require('better-sqlite3');
-const fs = require('fs');
+const sequelize = require('../db/sequelizeConfig.js');
 const session = require('express-session');
 const { default: DIContainer, object, use, factory } = require('rsdi');
 const {
@@ -18,22 +17,9 @@ const {
   RentsService,
   RentsRepository,
 } = require('../modules/rents/rentsModule');
-
-/**
- * Runs the database connection and returns the database instance.
- *
- * @return {database} The database instance.
- */
-function runDatabase() {
-  const dbPath =
-    process.env.NODE_ENV === 'test' ? ':memory:' : process.env.DB_PATH;
-  const dataBase = new database(dbPath, { verbose: console.log });
-  if (process.env.NODE_ENV !== 'test') {
-    const tables = fs.readFileSync(process.env.DB_TABLES_PATH, 'utf8');
-    dataBase.exec(tables);
-  }
-  return dataBase;
-}
+const User = require('../db/models/UserModel.js');
+const Car = require('../db/models/CarModel.js');
+const Rent = require('../db/models/RentModel.js');
 
 /**
  * Configures the session options for the application.
@@ -51,6 +37,21 @@ function configureSession() {
   return session(sessionOptions);
 }
 
+/**
+ * Syncs the database models and returns the Sequelize instance.
+ *
+ * @return {Promise<Sequelize>} The Sequelize instance.
+ */
+async function runDatabase() {
+  await sequelize.sync({ force: process.env.NODE_ENV === 'test' });
+  return sequelize;
+}
+
+/**
+ * Adds common definitions to the DI container.
+ *
+ * @param {DIContainer} container - The DI container.
+ */
 function addCommonDefinitions(container) {
   container.add({
     runDatabase: factory(runDatabase),
@@ -58,22 +59,39 @@ function addCommonDefinitions(container) {
   });
 }
 
+/**
+ * Adds user-related definitions to the DI container.
+ *
+ * @param {DIContainer} container - The DI container.
+ */
 function addUsersDefinitions(container) {
   container.add({
     userController: object(userController).construct(use('userService')),
     userService: object(userService).construct(use('userRepository')),
-    userRepository: object(userRepository).construct(use('runDatabase')),
+    userRepository: object(userRepository).construct(use(User)),
+    User: object(User),
   });
 }
 
+/**
+ * Adds car-related definitions to the DI container.
+ *
+ * @param {DIContainer} container - The DI container.
+ */
 function addCarsDefinitions(container) {
   container.add({
     carsController: object(carsController).construct(use('carsService')),
     carsService: object(carsService).construct(use('carsRepository')),
-    carsRepository: object(carsRepository).construct(use('runDatabase')),
+    carsRepository: object(carsRepository).construct(use(Car)),
+    Car: object(Car),
   });
 }
 
+/**
+ * Adds rent-related definitions to the DI container.
+ *
+ * @param {DIContainer} container - The DI container.
+ */
 function addRentsDefinitions(container) {
   container.add({
     rentsController: object(RentsController).construct(
@@ -86,9 +104,16 @@ function addRentsDefinitions(container) {
       use('carsService'),
       use('userService'),
     ),
-    rentsRepository: object(RentsRepository).construct(use('runDatabase')),
+    rentsRepository: object(RentsRepository).construct(use(Rent)),
+    Rent: object(Rent),
   });
 }
+
+User.hasMany(Rent, { foreignKey: 'fk_user' });
+Rent.belongsTo(User, { foreignKey: 'fk_user' });
+
+Car.hasOne(Rent, { foreignKey: 'fk_car' });
+Rent.belongsTo(Car, { foreignKey: 'fk_car' });
 
 /**
  * Configures the dependency injection container and returns it.

@@ -11,7 +11,9 @@
     "nodemon": "^3.1.4",
     "nunjucks": "^3.2.3",
     "path": "^0.12.7",
-    "rsdi": "^2.4.1"
+    "rsdi": "^2.4.1",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
   },
   "devDependencies": {
     "eslint": "^8.57.0",

@@ -1,58 +1,132 @@
-const Rent = require('../entity/Rent.js');
-const rentMapper = require('../mapper/rentMapper.js');
+const Rent = require('../../../db/models/RentModel.js');
+const Car = require('../../../db/models/CarModel.js');
+const User = require('../../../db/models/UserModel.js');
 
 class RentsRepository {
-  /**
-   * Creates a new instance of the RentsRepository class.
-   *
-   * @param {Object} database - The database object to use for interacting with the database.
-   */
-  constructor(database) {
-    this.tableName = 'rents';
-    this.database = database;
+  constructor() {
+    this.model = Rent;
   }
 
-  getAllRents() {
-    const query = `
-    SELECT rents.id AS rent_id, cars.*, users.*, rents.startDate, rents.finishDate, rents.totalDays
-    FROM rents
-    INNER JOIN cars ON rents.fk_car = cars.id
-    INNER JOIN users ON rents.fk_user = users.id
-  `;
-    const rows = this.database.prepare(query).all();
-    return rentMapper(rows);
+  async getAllRents() {
+    try {
+      const rents = await this.model.findAll({
+        include: [
+          {
+            model: Car,
+            attributes: [
+              'id',
+              'brand',
+              'model',
+              'year',
+              'kms',
+              'color',
+              'ac',
+              'passengers',
+              'transmission',
+              'picture',
+              'price',
+            ],
+          },
+          {
+            model: User,
+            attributes: [
+              'id',
+              'name',
+              'surname',
+              'age',
+              'phone',
+              'email',
+              'document',
+            ],
+          },
+        ],
+      });
+      return rents;
+    } catch (error) {
+      console.error('Unable to retrieve rents. Error:', error);
+      throw error;
+    }
   }
 
-  rentCar(rentData) {
-    const query = `
-    INSERT INTO ${this.tableName} (id, fk_car, fk_user, startDate, finishDate, totalDays)
-    VALUES (@id, @fk_car, @fk_user, @startDate, @finishDate, @totalDays)
-  `;
-    return this.database.prepare(query).run(rentData);
+  async rentCar(rentData) {
+    try {
+      const rent = await this.model.create(rentData);
+      return rent;
+    } catch (error) {
+      console.error('Unable to create rent. Error:', error);
+      throw error;
+    }
   }
 
-  editRent(id, formData) {
-    const query = `
-      UPDATE ${this.tableName} SET
-      fk_car = @fk_car,
-      fk_user = @fk_user,
-      startDate = @startDate,
-      finishDate = @finishDate,
-      totalDays = @totalDays
-      WHERE id = @id
-    `;
-    return this.database.prepare(query).run({ id, ...formData });
+  async editRent(id, formData) {
+    try {
+      const rent = await this.model.findByPk(id);
+      if (rent) {
+        await rent.update(formData);
+        return rent;
+      } else {
+        throw new Error('Rent not found');
+      }
+    } catch (error) {
+      console.error('Unable to update rent. Error:', error);
+      throw error;
+    }
   }
 
-  deleteRent(id) {
-    const query = `DELETE FROM ${this.tableName} WHERE id = ?`;
-    return this.database.prepare(query).run(id);
+  async deleteRent(id) {
+    try {
+      const rent = await this.model.findByPk(id);
+      if (rent) {
+        await rent.destroy();
+        return rent;
+      } else {
+        throw new Error('Rent not found');
+      }
+    } catch (error) {
+      console.error('Unable to delete rent. Error:', error);
+      throw error;
+    }
   }
 
-  getRentById(id) {
-    const query = `SELECT * FROM ${this.tableName} WHERE id = ?`;
-    const row = this.database.prepare(query).get(id);
-    return row ? new Rent(row) : undefined;
+  async getRentById(id) {
+    try {
+      const rent = await this.model.findByPk(id, {
+        include: [
+          {
+            model: Car,
+            attributes: [
+              'id',
+              'brand',
+              'model',
+              'year',
+              'kms',
+              'color',
+              'ac',
+              'passengers',
+              'transmission',
+              'picture',
+              'price',
+            ],
+          },
+          {
+            model: User,
+            attributes: [
+              'id',
+              'name',
+              'surname',
+              'age',
+              'phone',
+              'email',
+              'document',
+            ],
+          },
+        ],
+      });
+      return rent || undefined;
+    } catch (error) {
+      console.error('Unable to retrieve rent. Error:', error);
+      throw error;
+    }
   }
 }
 

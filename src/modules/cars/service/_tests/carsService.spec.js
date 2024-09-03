@@ -19,19 +19,19 @@ test('it tests getAllCars from repository', async () => {
 test('it tests that postCar from repository is called', async () => {
   mockRepository.postCar.mockResolvedValue();
 
-  const carData = { brand: 'Toyota', model: 'Camry' }; // Example data
+  const carData = { brand: 'Toyota', model: 'Camry' };
   await service.postCar(carData);
   expect(mockRepository.postCar).toHaveBeenCalledTimes(1);
-  expect(mockRepository.postCar).toHaveBeenCalledWith(expect.any(Object)); // Assuming it is called with a Car instance
+  expect(mockRepository.postCar).toHaveBeenCalledWith(expect.any(Object));
 });
 
 test('it tests that editCar from repository is called', async () => {
   mockRepository.editCar.mockResolvedValue();
 
-  const carData = { id: 1, brand: 'Toyota', model: 'Camry' }; // Example data
+  const carData = { id: 1, brand: 'Toyota', model: 'Camry' };
   await service.editCar(carData);
   expect(mockRepository.editCar).toHaveBeenCalledTimes(1);
-  expect(mockRepository.editCar).toHaveBeenCalledWith(expect.any(Object)); // Assuming it is called with a Car instance
+  expect(mockRepository.editCar).toHaveBeenCalledWith(expect.any(Object));
 });
 
 test('it tests that deleteCar from repository is called', async () => {
