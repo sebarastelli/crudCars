@@ -41,6 +41,7 @@ class RentsRepository {
           },
         ],
       });
+      console.log(rents);
       return rents;
     } catch (error) {
       console.error('Unable to retrieve rents. Error:', error);

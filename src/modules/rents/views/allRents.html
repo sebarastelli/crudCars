@@ -1,4 +1,6 @@
-{% extends "./rents.html" %} {% block rents %} {% if rentedCars !== undefined %}
+{% extends "./rents.html" %} 
+{% block rents %} 
+{% if rentedCars !== undefined %}
 <tbody>
   {% for rent in rentedCars %}
   <tr>
@@ -19,36 +21,35 @@
             <div class="dropdown-item">
               <ul style="list-style-type: none; padding-left: 0">
                 <li class="is-size-5">
-                  <strong>Brand:</strong> {{ rent.brand }}
+                  <strong>Brand:</strong> {{ rent.Car.brand }}
                 </li>
                 <li class="is-size-5">
-                  <strong>Model:</strong> {{ rent.model }}
+                  <strong>Model:</strong> {{ rent.Car.model }}
                 </li>
                 <li class="is-size-5">
-                  <strong>Year:</strong> {{ rent.year }}
+                  <strong>Year:</strong> {{ rent.Car.year }}
                 </li>
                 <li class="is-size-5">
-                  <strong>KMS:</strong> {{ rent.kms }} kms
+                  <strong>KMS:</strong> {{ rent.Car.kms }} kms
                 </li>
                 <li class="is-size-5">
-                  <strong>Color:</strong> {{ rent.color }}
+                  <strong>Color:</strong> {{ rent.Car.color }}
                 </li>
                 <li class="is-size-5">
-                  <strong>AC:</strong> {% if rent.ac == "Yes" %} Yes {% else %}
-                  No {% endif %}
+                  <strong>AC:</strong> {% if rent.Car.ac == "Yes" %} Yes {% else %} No {% endif %}
                 </li>
                 <li class="is-size-5">
-                  <strong>Passengers:</strong> {{ rent.passengers }}
+                  <strong>Passengers:</strong> {{ rent.Car.passengers }}
                 </li>
                 <li class="is-size-5">
-                  <strong>Transmission:</strong> {{ rent.transmission }}
+                  <strong>Transmission:</strong> {{ rent.Car.transmission }}
                 </li>
                 <li class="is-size-5">
                   <strong>Image:</strong>
-                  <a href="{{ rent.picture }}" target="_blank">View</a>
+                  <a href="{{ rent.Car.picture }}" target="_blank">View</a>
                 </li>
                 <li class="is-size-5">
-                  <strong>Price:</strong> ${{ rent.price }}
+                  <strong>Price:</strong> ${{ rent.Car.price }}
                 </li>
               </ul>
             </div>
@@ -57,31 +58,31 @@
       </div>
     </td>
     <td class="has-text-centered is-size-5">
-      {{ rent.name }} {{ rent.surname }}
+      {{ rent.User.name }} {{ rent.User.surname }}
     </td>
-    <td class="has-text-centered is-size-5">{{ rent.document }}</td>
+    <td class="has-text-centered is-size-5">{{ rent.User.document }}</td>
     <td class="has-text-centered is-size-5">{{ rent.startDate }}</td>
     <td class="has-text-centered is-size-5">{{ rent.finishDate }}</td>
     <td class="has-text-centered is-size-5">
-      {{ rent.totalDays * rent.price }}
+      {{ rent.totalDays * rent.Car.price }}
     </td>
     <td class="has-text-centered is-size-5">
       <div class="buttons is-centered">
         <a
           class="button is-small is-warning"
           href="/rents/editRent/{{ rent.id }}"
-          >Edit</a
-        >
+          >Edit</a>
         <a
           class="button is-small is-danger"
           href="/rents/deleteRent/{{ rent.id }}"
-          >Delete</a
-        >
+          >Delete</a>
       </div>
     </td>
   </tr>
   {% endfor %}
 </tbody>
-{% endif %} {% for error in errors %}
+{% endif %} 
+{% for error in errors %}
 <div class="notification is-danger">{{ error }}</div>
-{% endfor %} {% endblock %}
+{% endfor %} 
+{% endblock %}

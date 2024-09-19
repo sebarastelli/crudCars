@@ -32,6 +32,7 @@ class RentsController {
     try {
       const rentedCars = await this.rentsService.getAllRents();
       res.render('rents/views/allRents.html', { rentedCars });
+      console.log(rentedCars);
     } catch (error) {
       console.log(error);
       res.status(500).send('Error al obtener las rentas');
